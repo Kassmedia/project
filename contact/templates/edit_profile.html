@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Oja Agbe Harvestify</title>
+    <link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="hamburger" id="hamburger">&#9776;</div>
+            <ul id="menu">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'farmer_profile' %}">Farmer Profiles</a></li>
+                <li><a href="{% url 'product' %}">Products</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="edit-profile-container">
+            <h2>Edit Your Profile</h2>
+            <form id="edit-profile-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="name">Farm Name</label>
+                <input type="text" id="name" name="name" value="{{ profile.name }}" required>
+
+                <label for="bio">Farm Bio</label>
+                <textarea id="bio" name="bio" rows="4" required>{{ profile.bio }}</textarea>
+
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" value="{{ profile.location }}" required>
+
+                <label for="products">Products</label>
+                <textarea id="products" name="products" rows="4" required>{{ profile.products }}</textarea>
+
+                <label for="image">Farm Image</label>
+                <input type="file" id="image" name="image">
+
+                {% if profile.image %}
+                    <p>Current Image:</p>
+                    <img src="{{ profile.image.url }}" alt="Farm Image" width="150">
+                {% endif %}
+
+                <button type="submit">Update Profile</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="{% url 'privacy' %}">Privacy Policy</a>
+            <a href="{% url 'terms' %}">Terms of Service</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </div>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+    </footer>
+
+    <script src="{% static 'js/edit_profile.js' %}"></script>
+</body>
+</html>

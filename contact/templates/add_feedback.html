@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Feedback</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(90deg, #1976D2, #2196F3);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            color:black;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #FFD54F;
+            transform: scale(1.1);
+        }
+
+        /* Main Container Styling */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1976D2;
+            margin-bottom: 20px;
+            font-size: 30px;
+            letter-spacing: 1px;
+        }
+
+        .description {
+            text-align: center;
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1976D2;
+            box-shadow: 0 0 8px rgba(25, 118, 210, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: #1976D2;
+            color: white;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0 auto;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #2196F3;
+            transform: translateY(-3px);
+        }
+
+        /* Articles Section */
+        .articles-section {
+            margin-top: 40px;
+        }
+
+        .articles-section h2 {
+            color: #1976D2;
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .articles-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .article-item {
+            flex: 1 1 calc(45% - 10px);
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .article-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .article-item h3 {
+            font-size: 18px;
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .article-item p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #1976D2;
+            color: white;
+            padding: 20px 40px;
+            margin-top: 50px;
+        }
+
+        footer .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        footer .footer-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        footer .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        footer .footer-links a:hover {
+            color: #FFD54F;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Feedback Portal</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'add_feedback' %}">Feedback</a></li>
+                <li><a href="{% url 'add_event' %}">Events</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Submit Your Feedback</h1>
+        <p class="description">We value your feedback! Share your thoughts, suggestions, or concerns to help us improve.</p>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="feedback-title">Feedback Title</label>
+                <input type="text" id="feedback-title" name="title" placeholder="Enter feedback title" required>
+            </div>
+            <div class="form-group">
+                <label for="feedback-content">Feedback Content</label>
+                <textarea id="feedback-content" name="content" rows="6" placeholder="Write your feedback here..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Submit Feedback</button>
+        </form>
+
+        <!-- Articles Section -->
+        <div class="articles-section">
+            <h2>Helpful Resources</h2>
+            <div class="articles-container">
+                <div class="article-item">
+                    <h3>Why Your Feedback Matters</h3>
+                    <p>Discover the importance of user feedback in improving our services and creating a better experience for everyone.</p>
+                </div>
+                <div class="article-item">
+                    <h3>Tips for Giving Constructive Feedback</h3>
+                    <p>Learn how to structure your feedback to ensure it is actionable and beneficial for all parties involved.</p>
+                </div>
+                <div class="article-item">
+                    <h3>How We Respond to Feedback</h3>
+                    <p>Understand the process of how we handle and implement the feedback we receive from users.</p>
+                </div>
+                <div class="article-item">
+                    <h3>FAQs about Feedback</h3>
+                    <p>Get answers to common questions about submitting feedback and how it impacts our services.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 Feedback Portal. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="{% url 'privacy' %}">Privacy Policy</a>
+                <a href="{% url 'terms' %}">Terms of Service</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

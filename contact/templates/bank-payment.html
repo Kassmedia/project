@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bank Payment - Oja Agbe Harvestify{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            color: #ffb800;
+        }
+
+        /* Bank Payment Section */
+        .bank-payment-container {
+            width: 80%;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .bank-payment-container h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .bank-payment-container p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .bank-instructions {
+            font-size: 18px;
+            color: #555;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .bank-instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bank-instructions li {
+            font-size: 16px;
+            margin: 15px 0;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .bank-button {
+            background-color: #007bff;
+            color: white;
+            padding: 14px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .bank-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 25px 0;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>Oja Agbe Harvestify</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'marketplace' %}">Marketplace</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Bank Payment Section -->
+    <div class="bank-payment-container">
+        <h2>{% block page_title %}Make Payment via Online Banking{% endblock %}</h2>
+        <p>{% block page_intro %}Use your bank’s online payment portal to complete your transaction securely.{% endblock %}</p>
+
+        <!-- Payment Instructions -->
+        <div class="bank-instructions">
+            <h3>How to Pay via Online Banking:</h3>
+            <ul>
+                <li><strong>Step 1:</strong> Click the "Proceed to Bank" button below.</li>
+                <li><strong>Step 2:</strong> You will be redirected to your bank’s online payment portal.</li>
+                <li><strong>Step 3:</strong> Follow the instructions on your bank’s page to complete the payment securely.</li>
+            </ul>
+        </div>
+
+        <p>Once your payment is successful, you will be redirected back to the confirmation page.</p>
+
+        <!-- Proceed to Pay Button -->
+        <a href="{% url 'payment-processing' %}" class="bank-button">Proceed to Bank</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

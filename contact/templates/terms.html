@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service - Oja Agbe</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #3f51b5;
+      padding: 10px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    nav ul li a img {
+      width: 20px;
+      height: auto;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      background-color: #3f51b5;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    /* Main Content */
+    main {
+      padding: 20px;
+      background: white;
+      margin: 20px auto;
+      max-width: 800px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: #3f51b5;
+    }
+
+    h3 {
+      margin-top: 20px;
+      color: #3f51b5;
+    }
+
+    ul {
+      margin: 10px 0 20px 20px;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #3f51b5;
+      color: white;
+    }
+  </style>
+  <!-- Link to static CSS file -->
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <ul>
+      <li><a href="{% url 'home' %}"><img src="{% static 'images/home (1).png' %}" alt="Home Icon">Home</a></li>
+      <li><a href="{% url 'product' %}"><img src="{% static 'images/product (1).png' %}" alt="Products Icon">Products</a></li>
+      <li><a href="{% url 'contact' %}"><img src="{% static 'images/contact (1).png' %}" alt="Contact Icon">Contact</a></li>
+      <li><a href="{% url 'about' %}"><img src="{% static 'images/about (1).png' %}" alt="About Icon">About</a></li>
+      <li><a href="{% url 'login' %}"><img src="{% static 'images/login (1).png' %}" alt="Login Icon">Login</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Header -->
+  <header>
+    <h1>Terms of Service</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <h2>Agreement to Terms</h2>
+    <p>By accessing or using Oja Agbe, you agree to be bound by these terms and conditions.</p>
+    
+    <h3>1. Use of Our Services</h3>
+    <ul>
+      <li>You must be at least 18 years old to use our platform.</li>
+      <li>You agree to use our services for lawful purposes only.</li>
+    </ul>
+
+    <h3>2. Account Responsibilities</h3>
+    <ul>
+      <li>You are responsible for maintaining the confidentiality of your account.</li>
+      <li>Notify us immediately of any unauthorized use of your account.</li>
+    </ul>
+
+    <h3>3. Termination</h3>
+    <p>We reserve the right to terminate your account if you violate these terms.</p>
+
+    <h3>4. Modifications</h3>
+    <p>We may modify these terms at any time. It is your responsibility to check this page for updates.</p>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved. | 
+      <a href="{% url 'privacy' %}" style="color: white; text-decoration: underline;">Privacy Policy</a> |
+      <a href="{% url 'contact' %}" style="color: white; text-decoration: underline;">Contact</a>
+    </p>
+  </footer>
+
+  <!-- Link to static JavaScript file -->
+  <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Oja Agbe Harvestify</title>
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="hamburger" id="hamburger">&#9776;</div>
+            <ul id="menu">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'farmer_profile' %}">Farmer Profiles</a></li>
+                <li><a href="{% url 'product' %}">Products</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+                <li><a href="{% url 'change_password' %}">Change Password</a></li>
+                <li><a href="{% url 'notifications' %}">Notifications</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="notifications-container">
+            <h2>Your Notifications</h2>
+            <ul id="notifications-list">
+                {% for notification in notifications %}
+                    <li class="notification-item {{ notification.read|yesno:'read,unread' }}">
+                        <p>{{ notification.message }}</p>
+                        <small>{{ notification.timestamp|date:"d M Y, h:i A" }}</small>
+                    </li>
+                {% empty %}
+                    <p>You have no notifications at the moment.</p>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="{% url 'privacy' %}">Privacy Policy</a>
+            <a href="{% url 'terms' %}">Terms of Service</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </div>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+    </footer>
+
+    <script src="{% static 'js/notifications.js' %}"></script>
+</body>
+</html>

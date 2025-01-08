@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Water Conservation Techniques | Oja Agbe Harvestify{% endblock %}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.8;
+      margin: 0;
+      padding: 0;
+      background-color: #eef5f9;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2em;
+    }
+
+    header nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 1em;
+    }
+
+    header nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    main h2 {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+
+    main p {
+      margin: 12px 0;
+      color: #555;
+    }
+
+    .article-meta {
+      font-size: 0.9em;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    h3, h4 {
+      color: #34495e;
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style-type: circle;
+      margin: 20px 0;
+      padding-left: 40px;
+    }
+
+    ul li {
+      margin: 12px 0;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+
+    .navigation a {
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+    }
+
+    .navigation a:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Oja Agbe Harvestify Blog</h1>
+    <nav>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'blog' %}">Blog</a>
+      <a href="{% url 'contact' %}">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>{% block article_title %}Water Conservation Techniques{% endblock %}</h2>
+    <p class="article-meta">{% block article_meta %}Published on March 6, 2024 by Wahab Olayinka{% endblock %}</p>
+
+    <img src="{% static 'images/water.png' %}" alt="Water Conservation Techniques">
+
+    <p>{% block article_intro %}Water conservation is a critical practice for farmers striving to maintain healthy crops while minimizing water usage. As freshwater resources become increasingly scarce due to climate change and population growth, adopting effective water conservation techniques is essential for sustainable farming and global food security.{% endblock %}</p>
+
+    {% block article_content %}
+    <h3>Importance of Water Conservation</h3>
+    <p>Agriculture accounts for approximately 70% of global freshwater use. Mismanagement of water resources can lead to soil degradation, reduced yields, and environmental imbalances. By conserving water, farmers can reduce costs, improve crop resilience, and protect natural ecosystems.</p>
+
+    <h4>1. Drip Irrigation Systems</h4>
+    <p>Drip irrigation delivers water directly to the plant's root zone, minimizing waste and ensuring efficient water use. This method significantly reduces evaporation and runoff, making it ideal for arid regions.</p>
+
+    <h4>2. Rainwater Harvesting</h4>
+    <p>Rainwater harvesting involves collecting and storing rainwater for future use. Installing storage tanks and gutters can provide an additional water source during dry periods.</p>
+
+    <h4>3. Mulching</h4>
+    <p>Applying organic or synthetic mulch around plants helps retain soil moisture, reduce evaporation, and control weeds. Mulching also improves soil structure and fertility over time.</p>
+
+    <h4>4. Smart Irrigation Technologies</h4>
+    <p>Advanced technologies such as soil moisture sensors and automated irrigation systems enable precise water application based on real-time conditions. These innovations help optimize water usage.</p>
+
+    <h4>5. Crop Selection and Rotation</h4>
+    <p>Choosing drought-resistant crops and practicing crop rotation can improve water efficiency. Crops like sorghum and millet require less water and can thrive in arid climates.</p>
+
+    <h3>Tips for Effective Water Management</h3>
+    <ul>
+      <li>Regularly monitor soil moisture levels to determine water requirements.</li>
+      <li>Avoid over-irrigation to prevent waterlogging and nutrient leaching.</li>
+      <li>Maintain irrigation equipment to ensure proper functioning and avoid leaks.</li>
+      <li>Educate farm workers on the importance of water conservation practices.</li>
+    </ul>
+
+    <p>By integrating these water conservation techniques into their operations, farmers can sustain their crops, reduce environmental impact, and secure their livelihoods for generations to come.</p>
+    {% endblock %}
+
+    <div class="navigation">
+      <a href="{% url 'article3' %}">← Previous Article</a>
+      <a href="{% url 'article5' %}">Next Article →</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Oja Agbe Harvestify Wahab Olayinka. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Welcome to the Water Conservation Techniques article!');
+    });
+
+    const navigationLinks = document.querySelectorAll('.navigation a');
+    navigationLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        alert(`Navigating to ${link.textContent.trim()}`);
+      });
+    });
+  </script>
+</body>
+</html>

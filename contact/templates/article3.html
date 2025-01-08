@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Benefits of Crop Rotation | Oja Agbe Harvestify</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.8;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2em;
+    }
+
+    header nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 1em;
+    }
+
+    header nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    main h2 {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    main p {
+      margin: 12px 0;
+      color: #555;
+    }
+
+    .article-meta {
+      font-size: 0.9em;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    h3, h4 {
+      color: #444;
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style-type: circle;
+      margin: 20px 0;
+      padding-left: 40px;
+    }
+
+    ul li {
+      margin: 12px 0;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+
+    .navigation a {
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+    }
+
+    .navigation a:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Oja Agbe Harvestify Blog</h1>
+    <nav>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'blog' %}">Blog</a>
+      <a href="{% url 'contact' %}">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>The Benefits of Crop Rotation</h2>
+    <p class="article-meta">Published on March 4, 2024 by Wahab Olayinka</p>
+
+    <img src="{% static 'images/crop rotation.png' %}" alt="Benefits of Crop Rotation">
+
+    <p>Crop rotation is a time-tested agricultural practice that involves alternating different types of crops in the same field over successive seasons. This technique is not only sustainable but also plays a critical role in improving soil health, preventing diseases, and maximizing yields. By diversifying crops, farmers can break pest cycles, replenish soil nutrients, and create a balanced ecosystem on their farms.</p>
+
+    <h3>Why Crop Rotation Matters</h3>
+    <p>Monoculture farming, where the same crop is grown repeatedly, can exhaust soil nutrients and invite pest infestations. Crop rotation counters these challenges by introducing variability in planting, which disrupts pests and diseases, fosters nutrient-rich soil, and enhances biodiversity. It's a cornerstone of sustainable agriculture and a must-know for every farmer.</p>
+
+    <h4>Key Benefits of Crop Rotation</h4>
+    <ul>
+      <li><b>Enhanced Soil Fertility:</b> Different crops have varying nutrient requirements. Rotating crops like legumes (e.g., beans or peas) can fix nitrogen into the soil, reducing the need for chemical fertilizers.</li>
+      <li><b>Pest and Disease Control:</b> Many pests and pathogens are crop-specific. Rotating crops disrupts their lifecycle, reducing infestations naturally.</li>
+      <li><b>Improved Soil Structure:</b> Crops with deep roots, such as wheat, can prevent soil compaction, while shallow-rooted crops maintain the topsoil.</li>
+      <li><b>Increased Crop Yield:</b> Healthy, nutrient-rich soil leads to better productivity and reduces dependency on external inputs.</li>
+      <li><b>Environmental Benefits:</b> By reducing chemical inputs and promoting biodiversity, crop rotation supports a healthier ecosystem.</li>
+    </ul>
+
+    <h3>How to Implement Crop Rotation</h3>
+    <p>Implementing an effective crop rotation plan involves careful planning and understanding the needs of your crops and soil. Follow these steps:</p>
+    <ol>
+      <li><b>Analyze Soil Composition:</b> Test your soil to understand its nutrient levels and deficiencies.</li>
+      <li><b>Group Crops:</b> Categorize your crops based on their nutrient requirements, growth habits, and susceptibility to pests.</li>
+      <li><b>Plan Crop Sequences:</b> Rotate crops from different groups each season, such as legumes followed by cereals and then leafy greens.</li>
+      <li><b>Monitor Results:</b> Evaluate the effects of rotation on soil health, pest activity, and yield to refine your approach.</li>
+    </ol>
+
+    <h4>A Simple Example of Crop Rotation</h4>
+    <p>Here’s a basic three-year crop rotation cycle:</p>
+    <ul>
+      <li><b>Year 1:</b> Plant legumes (e.g., soybeans) to add nitrogen to the soil.</li>
+      <li><b>Year 2:</b> Grow cereal crops (e.g., maize) that thrive on nitrogen-rich soil.</li>
+      <li><b>Year 3:</b> Rotate to root vegetables (e.g., carrots) to improve soil structure.</li>
+    </ul>
+
+    <p>By adopting crop rotation, farmers not only secure better harvests but also contribute to the long-term sustainability of agricultural practices.</p>
+
+    <div class="navigation">
+      <a href="{% url 'article2' %}">← Previous Article</a>
+      <a href="{% url 'article4' %}">Next Article →</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Oja Agbe Harvestify Wahab Olayinka. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Simple interaction script
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Welcome to the Crop Rotation article!');
+    });
+
+    const navigationLinks = document.querySelectorAll('.navigation a');
+    navigationLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        alert(`Navigating to ${link.textContent.trim()}`);
+      });
+    });
+  </script>
+</body>
+</html>

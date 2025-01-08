@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affiliate and Referral Program</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f5f7;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #3f51b5;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .nav-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-icons a {
+      color: white;
+      font-size: 20px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+    }
+
+    .nav-icons a:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #3f51b5;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .referral-code {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-top: 10px;
+      background: #f9fafb;
+    }
+
+    .referral-code span {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    button {
+      background: #3f51b5;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #2c387e;
+    }
+
+    .leaderboard ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .leaderboard ul li {
+      background: #f9fafb;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .reward-summary {
+      display: flex;
+      justify-content: space-between;
+      background: #f9fafb;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .reward-summary div {
+      text-align: center;
+    }
+
+    .reward-summary div h3 {
+      color: #3f51b5;
+    }
+
+    footer {
+      background: #3f51b5;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 20px;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .highlight {
+      color: #3f51b5;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Affiliate and Referral Program - Oja Agbe</h1>
+  <div class="nav-icons">
+    <a href="{% url 'home' %}" title="Home">&#x1F3E0;</a>
+    <a href="{% url 'leaderboard' %}" title="Leaderboard">&#x1F4CA;</a>
+    <a href="{% url 'rewards' %}" title="Rewards">&#x1F4B0;</a>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Referral Code Section -->
+  <div class="section">
+    <h2>Your Referral Code</h2>
+    <div class="referral-code">
+      <span id="referralCode">NG-REF12345</span>
+      <button onclick="copyReferralCode()">Copy Code</button>
+    </div>
+  </div>
+
+  <!-- Reward Summary Section -->
+  <div class="section">
+    <h2>Your Rewards</h2>
+    <div class="reward-summary">
+      <div>
+        <h3>Total Referrals</h3>
+        <p id="totalReferrals">7</p>
+      </div>
+      <div>
+        <h3>Rewards Earned</h3>
+        <p id="rewardsEarned">₦25,000</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaderboard Section -->
+  <div class="section leaderboard">
+    <h2 id="leaderboard">Leaderboard</h2>
+    <ul>
+      <li>
+        <span>Adebayo John</span>
+        <span>60 Referrals</span>
+      </li>
+      <li>
+        <span>Chinwe Ndukwe</span>
+        <span>55 Referrals</span>
+      </li>
+      <li>
+        <span>Ibrahim Musa</span>
+        <span>50 Referrals</span>
+      </li>
+      <li>
+        <span>Funke Ajayi</span>
+        <span>45 Referrals</span>
+      </li>
+      <li>
+        <span>Bola Okonkwo</span>
+        <span>40 Referrals</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Additional Information Section -->
+  <div class="section">
+    <h2 id="rewards">How It Works</h2>
+    <p>Share your unique referral code with friends and family. Each successful signup using your code earns you rewards. Build your referrals to climb the leaderboard and win exciting prizes!</p>
+    <p><span class="highlight">Tip:</span> Use social media and messaging apps to maximize your reach!</p>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+</footer>
+
+<script>
+  // Function to copy referral code to clipboard
+  function copyReferralCode() {
+    const referralCode = document.getElementById('referralCode').textContent;
+    navigator.clipboard.writeText(referralCode).then(() => {
+      alert('Referral code copied to clipboard!');
+    }).catch(err => {
+      alert('Failed to copy referral code.');
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Community Forum - Oja Agbe Harvestify{% endblock %}</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(90deg, #4CAF50, #388E3C);
+            color: white;
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 20px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #FFB800;
+            transform: scale(1.1);
+        }
+
+        /* Forum Content */
+        .forum-container {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Section Titles */
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #388E3C;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Discussion, Event, Feedback Items */
+        .board-item, .event-item, .feedback-item {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .board-item:hover, .event-item:hover, .feedback-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .board-item h3, .event-item h3, .feedback-item h3 {
+            font-size: 20px;
+            color: #388E3C;
+            margin-bottom: 10px;
+        }
+
+        .board-item p, .event-item p, .feedback-item p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .board-item a, .event-item a {
+            color: #388E3C;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .board-item a:hover, .event-item a:hover {
+            color: #FFB800;
+        }
+
+        /* Buttons */
+        .add-post-button, .add-feedback-button {
+            background-color: #388E3C;
+            color: white;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .add-post-button:hover, .add-feedback-button:hover {
+            background-color: #4CAF50;
+            transform: translateY(-3px);
+        }
+
+        /* Forms */
+        .feedback-form, .post-form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        footer p {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>Oja Agbe Harvestify</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'marketplace' %}">Marketplace</a></li>
+                <li><a href="{% url 'community-forum' %}">Community Forum</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Forum Content -->
+    <div class="forum-container">
+        
+        <!-- Discussion Boards Section -->
+        <div class="discussion-board">
+            <h2>Discussion Boards</h2>
+            {% for board in boards %}
+                <div class="board-item">
+                    <h3><a href="{% url 'discussion_detail' board.id %}">{{ board.title }}</a></h3>
+                    <p>{{ board.description }}</p>
+                </div>
+            {% endfor %}
+            <button class="add-post-button" onclick="window.location.href='{% url 'add_post' %}'">Add a New Discussion</button>
+        </div>
+
+        <!-- Event Boards Section -->
+        <div class="event-board">
+            <h2>Upcoming Agricultural Events</h2>
+            {% for event in events %}
+                <div class="event-item">
+                    <h3><a href="{% url 'event_detail' event.id %}">{{ event.title }}</a></h3>
+                    <p>{{ event.description }} Date: {{ event.date }}</p>
+                </div>
+            {% endfor %}
+            <button class="add-post-button" onclick="window.location.href='{% url 'add_event' %}'">Add an Event</button>
+        </div>
+
+        <!-- Feedback & Suggestions Section -->
+        <div class="feedback-section">
+            <h2>Feedback & Suggestions</h2>
+            {% for feedback in feedbacks %}
+                <div class="feedback-item">
+                    <h3>{{ feedback.title }}</h3>
+                    <p>{{ feedback.description }}</p>
+                </div>
+            {% endfor %}
+            <button class="add-feedback-button" onclick="window.location.href='{% url 'add_feedback' %}'">Add Feedback</button>
+
+            <!-- Feedback Form -->
+            <div class="feedback-form">
+                <h3>Submit Your Feedback</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedback">Your Feedback</label>
+                        <textarea id="feedback" name="feedback" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="add-feedback-button">Submit Feedback</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

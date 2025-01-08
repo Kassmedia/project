@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Processing - Oja Agbe Harvestify</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            color: #ffb800;
+        }
+
+        /* Payment Processing Section */
+        .payment-processing-container {
+            width: 80%;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .payment-processing-container h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .payment-processing-container p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+            margin: 30px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .payment-status {
+            margin-top: 30px;
+        }
+
+        .payment-status.success {
+            color: green;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .payment-status.error {
+            color: red;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .payment-button {
+            background-color: #007bff;
+            color: white;
+            padding: 14px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .payment-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 25px 0;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 16px;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>Oja Agbe Harvestify</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'marketplace' %}">Marketplace</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Payment Processing Section -->
+    <div class="payment-processing-container">
+        <h2>Processing Your Payment...</h2>
+        <p>We are securely processing your payment. Please wait a moment.</p>
+
+        <!-- Spinner to simulate loading -->
+        <div class="spinner"></div>
+
+        <!-- Payment Status Message -->
+        <div class="payment-status" id="payment-status">
+            <!-- Dynamic message will be displayed here -->
+        </div>
+
+        <!-- Retry Button -->
+        <a href="{% url 'payment' %}" class="payment-button" id="retry-button" style="display: none;">Retry Payment</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const paymentStatus = document.getElementById("payment-status");
+        const retryButton = document.getElementById("retry-button");
+
+        // Simulate payment success after 5 seconds
+        setTimeout(() => {
+            paymentStatus.textContent = "Your payment was successfully processed!";
+            paymentStatus.classList.add("success");
+        }, 5000);
+
+        // Simulate an error after 10 seconds
+        setTimeout(() => {
+            paymentStatus.textContent = "Oops! Something went wrong. Please try again.";
+            paymentStatus.classList.remove("success");
+            paymentStatus.classList.add("error");
+            retryButton.style.display = "block";
+        }, 10000);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+ {% load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Plans - Oja Agbe Harvestify</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        /* Subscription Plans Section */
+        #subscription-plans {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 20px;
+        }
+
+        .plan-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .plan-card h3 {
+            color: #007BFF;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .plan-card p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .plan-card .price {
+            font-size: 2em;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .plan-card .features {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .plan-card .features li {
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .plan-card .subscribe-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .plan-card .subscribe-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #077e60;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 15px;
+        }
+
+        footer .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        footer .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        footer p {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        footer .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        footer .social-icons a img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="hamburger" id="hamburger">&#9776;</div>
+            <ul id="menu">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'farmer_profile' %}">Farmer Profiles</a></li>
+                <li><a href="{% url 'product' %}">Products</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="subscription-plans">
+            <!-- Subscription plans will be loaded dynamically -->
+        </section>
+    </main>
+
+    
+    <footer>
+        <div class="footer-links">
+          <a href="{% url 'privacy' %}">Privacy Policy</a>
+          <a href="{% url 'terms' %}">Terms of Service</a>
+          <a href="{% url 'contact' %}">Contact</a>
+          <a href="{% url 'subscribe' %}">Subscribe</a>
+        </div>
+        <div class="social-icons">
+          <a href="#"><img src="{% static 'images/twitter (1).png' %}" alt="Twitter"></a>
+          <a href="#"><img src="{% static 'images/facebook (1).png' %}" alt="Facebook"></a>
+          <a href="#"><img src="{% static 'images/instagr.jpg' %}" alt="Instagram"></a>
+        </div>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+      </footer>
+
+    <script>
+        // Sample data for subscription plans
+        const subscriptionPlans = [
+            {
+                title: "Farmer Plan",
+                price: "₦5,000",
+                pricePerMonth: "₦5,000/month",
+                features: [
+                    "Highlighted listings on the platform",
+                    "Analytics on product views",
+                    "Priority support"
+                ]
+            },
+            {
+                title: "Buyer Plan",
+                price: "₦2,000",
+                pricePerMonth: "₦2,000/month",
+                features: [
+                    "Early access to fresh farm produce",
+                    "Discounts on bulk purchases",
+                    "Available 24/7"
+                ]
+            }
+        ];
+
+        // Function to render subscription plans dynamically
+        function renderSubscriptionPlans() {
+            const plansSection = document.getElementById("subscription-plans");
+
+            subscriptionPlans.forEach(plan => {
+                // Create a card for each subscription plan
+                const planCard = document.createElement("div");
+                planCard.classList.add("plan-card");
+
+                // Populate the card with plan data
+                planCard.innerHTML = `
+                    <h3>${plan.title}</h3>
+                    <p class="price">${plan.pricePerMonth}</p>
+                    <ul class="features">
+                        ${plan.features.map(feature => `<li>${feature}</li>`).join("")}
+                    </ul>
+                    <a href="{% url 'payment' %}?plan=${encodeURIComponent(plan.title)}&price=${encodeURIComponent(plan.price)}" class="subscribe-btn">Subscribe Now</a>
+                `;
+
+                // Append the card to the subscription plans section
+                plansSection.appendChild(planCard);
+            });
+        }
+
+        // Render subscription plans on page load
+        document.addEventListener("DOMContentLoaded", renderSubscriptionPlans);
+    </script>
+</body>
+</html>

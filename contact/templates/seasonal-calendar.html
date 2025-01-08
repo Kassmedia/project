@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seasonal Calendar - Oja Agbe Harvestify</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.2s ease;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            color: #ffb800;
+            transform: scale(1.1);
+        }
+
+        /* Main Content */
+        .calendar-container {
+            padding: 50px;
+        }
+
+        .calendar-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .calendar-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+
+        .calendar-header p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Calendar Grid */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .month {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .month:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .month h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+
+        .month p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        /* Available Products */
+        .available-products {
+            font-size: 14px;
+            color: #007bff;
+            margin-bottom: 15px;
+            text-align: left;
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .available-products li {
+            margin-bottom: 8px;
+            font-weight: 600;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .available-products li:hover {
+            color: #ff7f50;
+            transform: translateX(5px);
+        }
+
+        /* Subscription Section */
+        .subscribe-section {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .subscribe-section h3 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #343a40;
+        }
+
+        .subscribe-section p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            background-color: #f8f9fa;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: #fff;
+        }
+
+        .subscribe-button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .subscribe-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            background-color: #343a40;
+            color: white;
+            padding: 30px 0;
+            margin-top: 60px;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .calendar {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group input,
+            .form-group select {
+                width: 90%;
+            }
+
+            .subscribe-button {
+                width: 90%;
+            }
+        }
+    </style>
+    <script>
+        // Example JavaScript function for form submission or other interactivity
+        document.addEventListener("DOMContentLoaded", function() {
+            const subscribeButton = document.querySelector(".subscribe-button");
+            subscribeButton.addEventListener("click", function(event) {
+                event.preventDefault();
+                alert("Subscription successful! We'll notify you when the products are available.");
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>Oja Agbe Harvestify</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a> </li>
+                <li><a href="{% url 'marketplace' %}">Marketplace</a></li>
+                <li><a href="{% url 'community-forum' %}">Community Forum</a></li>
+                <li><a href="{% url 'seasonal-calendar' %}">Seasonal Calendar</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Seasonal Calendar Section -->
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <h2>Seasonal Calendar</h2>
+            <p>Discover the availability of various crops, so you can plan your purchases with ease.</p>
+        </div>
+
+        <!-- Calendar Display 
+        <div class="calendar">
+            {% for month in months %}
+            <div class="month">
+                <h3>{{ month.name }} </h3>
+                <p>Available Products:</p>
+                <ul class="available-products">
+                    {% for product in month.products %}
+                    <li>{{ product }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>  -->
+
+        <!-- Subscription Section for Notifications -->
+        <div class="subscribe-section">
+            <h3>Get Notified When Products Are Available</h3>
+            <p>Enter your email and select your preferred products to get notified when they are in season.</p>
+            <form method="post" action="{% url 'subscribe' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+              <!--  <div class="form-group">
+                    <label for="products">Select Products</label>
+                    <select id="products" name="products" multiple>
+                   {% for product in available_products %} 
+                        <option value="{{ product }}">{{ product }}</option>
+                        {% endfor %}
+                    </select>
+                </div> -->
+                <button type="submit" class="subscribe-button">Subscribe for Notifications</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

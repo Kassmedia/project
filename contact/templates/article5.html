@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Organic Farming Essentials | Oja Agbe Harvestify{% endblock %}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.8;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f8f6;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2em;
+    }
+
+    header nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 1em;
+    }
+
+    header nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    main h2 {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+      color: #27ae60;
+    }
+
+    main p {
+      margin: 12px 0;
+      color: #555;
+    }
+
+    .article-meta {
+      font-size: 0.9em;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    h3, h4 {
+      color: #2c3e50;
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style-type: disc;
+      margin: 20px 0;
+      padding-left: 40px;
+    }
+
+    ul li {
+      margin: 12px 0;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+
+    .navigation a {
+      background-color: #27ae60;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+    }
+
+    .navigation a:hover {
+      background-color: #1e8449;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #2c3e50;
+      color: white;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Oja Agbe Harvestify Blog</h1>
+    <nav>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'blog' %}">Blog</a>
+      <a href="{% url 'contact' %}">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>{% block article_title %}Organic Farming Essentials{% endblock %}</h2>
+    <p class="article-meta">{% block article_meta %}Published on March 8, 2024 by Wahab Olayinka{% endblock %}</p>
+
+    <img src="{% static 'images/organic.png' %}" alt="Organic Farming Essentials">
+
+    <p>{% block article_intro %}Organic farming is more than a method of agriculture; it is a commitment to sustainability, health, and environmental stewardship. By avoiding synthetic chemicals and focusing on natural processes, organic farming produces healthier food while protecting the planet.{% endblock %}</p>
+
+    {% block article_content %}
+    <h3>What is Organic Farming?</h3>
+    <p>Organic farming emphasizes the use of natural inputs and methods to cultivate crops and raise livestock. It rejects synthetic pesticides, fertilizers, and genetically modified organisms (GMOs), instead focusing on building soil fertility, biodiversity, and ecological balance.</p>
+
+    <h3>Key Principles of Organic Farming</h3>
+    <h4>1. Soil Health</h4>
+    <p>Healthy soil is the foundation of organic farming. Practices such as composting, green manuring, and cover cropping enrich the soil with nutrients and organic matter, ensuring long-term fertility.</p>
+
+    <h4>2. Biodiversity</h4>
+    <p>Maintaining diverse plant and animal species is essential for a balanced ecosystem. Crop rotation, intercropping, and integrating livestock contribute to this diversity.</p>
+
+    <h4>3. Natural Pest and Weed Control</h4>
+    <p>Organic farmers rely on natural predators, companion planting, and manual weeding to manage pests and weeds, reducing the need for harmful chemicals.</p>
+
+    <h4>4. Water Conservation</h4>
+    <p>Techniques such as mulching, drip irrigation, and contour farming help minimize water usage and preserve this vital resource.</p>
+
+    <h3>Benefits of Organic Farming</h3>
+    <ul>
+      <li>Improves soil fertility and structure over time.</li>
+      <li>Enhances the nutritional value of crops.</li>
+      <li>Reduces environmental pollution and promotes biodiversity.</li>
+      <li>Supports healthier ecosystems and combats climate change by sequestering carbon in the soil.</li>
+    </ul>
+
+    <h3>Challenges and Opportunities</h3>
+    <p>While organic farming offers numerous benefits, it comes with challenges such as higher labor demands, certification requirements, and initial transition costs. However, the growing demand for organic products presents significant market opportunities for farmers.</p>
+
+    <p>Transitioning to organic farming requires dedication, knowledge, and a willingness to adapt. By embracing its principles, farmers can play a vital role in creating a more sustainable future for agriculture and the planet.</p>
+    {% endblock %}
+
+    <div class="navigation">
+      <a href="{% url 'article4' %}">← Previous Article</a>
+      <a href="{% url 'article6' %}">Next Article →</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Oja Agbe Harvestify Wahab Olayinka. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Welcome to the Organic Farming Essentials article!');
+    });
+
+    const navigationLinks = document.querySelectorAll('.navigation a');
+    navigationLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        alert(`Navigating to ${link.textContent.trim()}`);
+      });
+    });
+  </script>
+</body>
+</html>

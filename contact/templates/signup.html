@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .signup-container {
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #444;
+            font-weight: 600;
+        }
+
+        h1 span {
+            display: block;
+            font-size: 18px;
+            color: #666;
+            margin-top: 5px;
+            font-weight: 400;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #444;
+            font-size: 15px;
+        }
+
+        form input {
+            padding: 12px 14px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background-color: #fdfdfd;
+            color: #333;
+        }
+
+        form input::placeholder {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        form input:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 6px rgba(106, 17, 203, 0.5);
+            outline: none;
+            background-color: #fff;
+        }
+
+        .error-message, .success-message {
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            background-color: #fdecea;
+            border: 1px solid #d32f2f;
+        }
+
+        .success-message {
+            color: #388e3c;
+            background-color: #e8f5e9;
+            border: 1px solid #388e3c;
+        }
+
+        button {
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(106, 17, 203, 0.5);
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .link a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .link a:hover {
+            color: #2575fc;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .signup-container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 12px;
+            }
+
+            form label {
+                font-size: 13px;
+            }
+        }
+
+        /* Smooth animation for container */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .form-field {
+            margin-bottom: 15px;
+        }
+        
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-field input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Welcome! <span>Create Your Account</span></h1>
+        <form id="signupForm" method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            
+            <!-- Username -->
+            <div class="form-field">
+                <label for="{{ form.username.id_for_label }}">Username:</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error-message">
+                        {% for error in form.username.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Email -->
+            <div class="form-field">
+                <label for="{{ form.email.id_for_label }}">Email:</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="error-message">
+                        {% for error in form.email.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Password -->
+            <div class="form-field">
+                <label for="{{ form.password.id_for_label }}">Password:</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="error-message">
+                        {% for error in form.password.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- Confirm Password -->
+            <div class="form-field">
+                <label for="{{ form.confirm_password.id_for_label }}">Confirm Password:</label>
+                {{ form.confirm_password }}
+                {% if form.confirm_password.errors %}
+                    <div class="error-message">
+                        {% for error in form.confirm_password.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <!-- General form errors (if any) -->
+            {% if form.non_field_errors %}
+                <div class="error-message">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        
+            <div id="formMessage" class="error-message">
+                <!-- Additional error messages -->
+            </div>
+            
+            <button type="submit">Create Account</button>
+        </form>
+    
+    
+        
+        <div class="link">
+            Already have an account? <a href="{% url 'login' %}">Log In</a>
+        </div>
+    </div>
+
+    <script>
+        const signupForm = document.getElementById('signupForm');
+        const formMessage = document.getElementById('formMessage');
+
+        signupForm.addEventListener('submit', function(event) {
+            const passwordInput = signupForm.querySelector('input[name="password"]');
+            const confirmPasswordInput = signupForm.querySelector('input[name="confirm_password"]');
+            const password = passwordInput ? passwordInput.value : null;
+            const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : null;
+
+            formMessage.style.display = 'none'; // Hide previous messages
+
+            if (password && confirmPassword && password !== confirmPassword) {
+                event.preventDefault();
+                formMessage.textContent = 'Passwords do not match.';
+                formMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

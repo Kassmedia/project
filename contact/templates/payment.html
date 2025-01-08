@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Oja Agbe Harvestify</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            color: #ffb800;
+        }
+
+        /* Payment Section */
+        .payment-container {
+            width: 80%;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-container h2 {
+            text-align: center;
+            color: #333;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .payment-method {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 30%;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .payment-method:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .payment-method img {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .payment-method p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .payment-button {
+            background-color: #007bff;
+            color: white;
+            padding: 14px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .payment-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Instructions Section */
+        .payment-instructions {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 18px;
+            color: #555;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            margin-bottom: 40px;
+        }
+
+        .payment-instructions h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .payment-instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .payment-instructions li {
+            font-size: 18px;
+            margin: 20px 0;
+            line-height: 1.6;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .payment-instructions li::before {
+            content: "✔";
+            color: #ffb800;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 25px 0;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Oja Agbe Harvestify</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'marketplace' %}">Marketplace</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Payment Section -->
+    <div class="payment-container">
+        <h2>Complete Your Payment</h2>
+
+        <!-- Payment Methods -->
+        <div class="payment-methods">
+            <div class="payment-method">
+                <img src="{% static 'images/visa.png' %}" alt="Visa">
+                <h3>Debit/Credit Card</h3>
+                <p>Pay securely with your Visa or MasterCard</p>
+                <a href="{% url 'payment-processing' %}" class="payment-button">Pay with your Card</a>
+            </div>
+
+            <div class="payment-method">
+                <img src="{% static 'images/mtn.png' %}" alt="MTN">
+                <h3>USSD Payment</h3>
+                <p>Use USSD to pay with your mobile phone</p>
+                <a href="{% url 'ussd-payment' %}" class="payment-button">Pay via USSD</a>
+            </div>
+
+            <div class="payment-method">
+                <img src="{% static 'images/online.png' %}" alt="Stripe">
+                <h3>Online Banking</h3>
+                <p>Pay securely via your bank's </p>
+                <a href="{% url 'bank-payment' %}" class="payment-button">Pay with Bank</a>
+            </div>
+        </div>
+
+        <div class="payment-instructions">
+            <h3>How to Pay</h3>
+            <ul>
+                <li>Choose a payment method</li>
+                <li>Follow the provided instructions</li>
+                <li>Complete your payment securely</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

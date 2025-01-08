@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery and Logistics - Oja Agbe</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #3f51b5;
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .sidebar {
+      width: 20%;
+      background-color: #ffffff;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      color: #3f51b5;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #3f51b5;
+      text-decoration: none;
+      font-size: 16px;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      background-color: #3f51b5;
+      color: white;
+    }
+
+    .content {
+      width: 75%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background-color: white;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .card h2 {
+      text-align: center;
+      color: #3f51b5;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      background-color: #3f51b5;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-group button:hover {
+      background-color: #2c387e;
+    }
+
+    .status-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    footer {
+      background-color: #3f51b5;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Delivery and Logistics - Oja Agbe</h1>
+</header>
+
+<div class="main-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Menu</h2>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'product' %}">Products</a>
+    <a href="{% url 'Delivery_logistics' %}" class="active">Delivery and Logistics</a>
+    <a href="{% url 'about' %}">About Us</a>
+    <a href="{% url 'contact' %}">Contact</a>
+    <a href="{% url 'logout' %}">Logout</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Scheduling Section -->
+    <div class="card">
+      <h2>Schedule a Pickup</h2>
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="pickup-location">Pickup Location</label>
+          <input type="text" id="pickup-location" name="pickup_location" placeholder="Enter your location" required>
+        </div>
+        <div class="form-group">
+          <label for="delivery-location">Delivery Location</label>
+          <input type="text" id="delivery-location" name="delivery_location" placeholder="Enter destination" required>
+        </div>
+        <div class="form-group">
+          <label for="product-weight">Product Weight (kg)</label>
+          <input type="number" id="product-weight" name="product_weight" placeholder="Enter product weight" required>
+        </div>
+        <div class="form-group">
+          <label for="logistics-provider">Choose Logistics Provider</label>
+          <select id="logistics-provider" name="logistics_provider" required>
+            <option value="provider1">Provider 1</option>
+            <option value="provider2">Provider 2</option>
+            <option value="provider3">Provider 3</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit">Schedule Pickup</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Delivery Status Section -->
+    <div class="card">
+      <h2>Delivery Status</h2>
+      <div class="status-section">
+        {% for order in orders %}
+          <div class="status-item">
+            <span>Order #{{ order.id }}</span>
+            <span>Status: {{ order.status }}</span>
+          </div>
+        {% empty %}
+          <p>No orders available.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USSD Payment - Oja Agbe Harvestify</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            color: #ffb800;
+        }
+
+        /* USSD Payment Section */
+        .ussd-payment-container {
+            width: 80%;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .ussd-payment-container h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .ussd-payment-container p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .ussd-instructions {
+            font-size: 18px;
+            color: #555;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .ussd-instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ussd-instructions li {
+            font-size: 16px;
+            margin: 15px 0;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .ussd-button {
+            background-color: #007bff;
+            color: white;
+            padding: 14px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .ussd-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 25px 0;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+    </style>
+
+    <script>
+        // JavaScript for smooth navigation on "Proceed to Pay"
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentButton = document.querySelector('.ussd-button');
+            
+            paymentButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                alert("You are being redirected to the payment processing page.");
+                window.location.href = "{% url 'payment-processing' %}"; // Django dynamic URL
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>Oja Agbe Harvestify</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'marketplace' %}">Marketplace</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- USSD Payment Section -->
+    <div class="ussd-payment-container">
+        <h2>Make Payment via USSD</h2>
+        <p>Use USSD code to securely pay for your purchase using your mobile phone.</p>
+
+        <!-- Payment Instructions -->
+        <div class="ussd-instructions">
+            <h3>How to Pay via USSD:</h3>
+            <ul>
+                <li><strong>Step 1:</strong> Dial the USSD code provided below from your phone.</li>
+                <li><strong>Step 2:</strong> Follow the on-screen instructions to complete your payment.</li>
+                <li><strong>Step 3:</strong> Once your payment is successful, you'll receive a confirmation message.</li>
+            </ul>
+        </div>
+
+        <p><strong>USSD Code:</strong> <span style="font-weight: 700;">*123#</span></p>
+        <p>After dialing the code, you will be prompted to select your payment method and complete the payment.</p>
+
+        <!-- Proceed to Pay Button -->
+        <a href="#" class="ussd-button">Proceed to Pay</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

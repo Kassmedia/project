@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Event</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(90deg, #4CAF50, #388E3C);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #FFB800;
+            transform: scale(1.1);
+        }
+
+        /* Page Container */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #388E3C;
+            margin-bottom: 20px;
+            font-size: 30px;
+            letter-spacing: 1px;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: #f8f8f8;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #388E3C;
+            box-shadow: 0 0 8px rgba(56, 142, 60, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: #388E3C;
+            color: white;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0 auto;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #4CAF50;
+            transform: translateY(-3px);
+        }
+
+        /* Articles Section */
+        .articles-section {
+            margin-top: 40px;
+        }
+
+        .articles-section h2 {
+            color: #388E3C;
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .articles-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .article-item {
+            flex: 1 1 calc(45% - 10px);
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .article-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .article-item h3 {
+            font-size: 18px;
+            color: #388E3C;
+            margin-bottom: 10px;
+        }
+
+        .article-item p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #388E3C;
+            color: white;
+            padding: 20px 40px;
+            margin-top: 50px;
+        }
+
+        footer .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        footer .footer-container .footer-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        footer .footer-container .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        footer .footer-container .footer-links a:hover {
+            color: #FFB800;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Oja Agbe Harvestify</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'marketplace' %}">Marketplace</a></li>
+                <li><a href="{% url 'community-forum' %}">Community Forum</a></li>
+                <li><a href="{% url 'add_event' %}">Events</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Add a New Event</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="event-title">Event Title</label>
+                <input type="text" id="event-title" name="title" placeholder="Enter event title" required>
+            </div>
+            <div class="form-group">
+                <label for="event-date">Event Date</label>
+                <input type="date" id="event-date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="event-description">Event Description</label>
+                <textarea id="event-description" name="description" rows="5" placeholder="Describe the event" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Post Event</button>
+        </form>
+
+        <!-- Articles Section -->
+        <div class="articles-section">
+            <h2>Event Guidelines and Tips</h2>
+            <div class="articles-container">
+                <div class="article-item">
+                    <h3>How to Organize a Successful Event</h3>
+                    <p>Learn the key steps to planning and hosting an impactful event that draws attention and achieves your goals.</p>
+                </div>
+                <div class="article-item">
+                    <h3>Promoting Your Event</h3>
+                    <p>Discover creative ways to promote your event and engage your target audience effectively.</p>
+                </div>
+                <div class="article-item">
+                    <h3>Effective Event Follow-Up</h3>
+                    <p>Ensure your event success extends beyond the day itself with actionable follow-up strategies.</p>
+                </div>
+                <div class="article-item">
+                    <h3>Best Practices for Event Hosting</h3>
+                    <p>Explore tried-and-true tips for hosting events that leave a lasting impression on your attendees.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 Oja Agbe Harvestify. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="{% url 'privacy' %}">Privacy Policy</a>
+                <a href="{% url 'terms' %}">Terms of Service</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

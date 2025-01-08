@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Market Trends in Agriculture | Oja Agbe Harvestify</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    header nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 0.9em;
+    }
+
+    header nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    main h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    main p {
+      margin: 10px 0;
+    }
+
+    .article-meta {
+      font-size: 0.9em;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin: 20px 0;
+    }
+
+    ul {
+      list-style-type: disc;
+      margin: 20px 0;
+      padding-left: 40px;
+    }
+
+    ul li {
+      margin: 10px 0;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .navigation a {
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+
+    .navigation a:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Oja Agbe Harvestify Blog</h1>
+    <nav>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'blog' %}">Blog</a>
+      <a href="{% url 'contact' %}">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Market Trends in Agriculture</h2>
+    <p class="article-meta">Published on March 3, 2024 by Wahab Olayinka</p>
+
+    <img src="{% static 'images/market trend.png' %}" alt="Market Trends in Agriculture">
+
+    <p>The agricultural market is evolving rapidly, driven by technological advancements, changing consumer preferences, and global challenges. Staying ahead of these trends is crucial for farmers and agribusinesses to remain competitive and profitable.</p>
+
+    <h3>Top Trends Shaping Agriculture</h3>
+    <ul>
+      <li><b>Precision Agriculture:</b> Using technology like drones, sensors, and AI to optimize planting, watering, and harvesting.</li>
+      <li><b>Organic and Sustainable Produce:</b> Increasing demand for organic and sustainably grown crops among health-conscious consumers.</li>
+      <li><b>Global Supply Chain Shifts:</b> Adapting to disruptions and ensuring resilience in food supply chains.</li>
+      <li><b>Climate-Smart Agriculture:</b> Implementing practices to reduce emissions and adapt to changing weather patterns.</li>
+    </ul>
+
+    <p>By keeping a pulse on these trends, farmers can adapt and seize new opportunities in the ever-changing agricultural landscape.</p>
+
+    <div class="navigation">
+      <a href="{% url 'article1' %}">← Previous Article</a>
+      <a href="{% url 'article3' %}">Next Article →</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Oja Agbe Harvestify Wahab Olayinka. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Add interactivity to navigation links
+    document.querySelectorAll('.navigation a').forEach(link => {
+      link.addEventListener('click', () => {
+        console.log(`Navigating to ${link.textContent}`);
+      });
+    });
+
+    // Display a motivational message for readers
+    console.log('Stay informed and ahead of the curve with the latest agricultural trends!');
+  </script>
+</body>
+</html>

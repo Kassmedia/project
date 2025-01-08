@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Profiles - Oja Agbe</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="hamburger" id="hamburger">&#9776;</div>
+            <ul id="menu">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'farmer_profiles' %}">Farmer Profiles</a></li>
+                <li><a href="{% url 'products' %}">Products</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="farmer-profiles">
+            <!-- Profiles will be loaded here dynamically -->
+            {% for farmer in farmers %}
+                <div class="farmer-card">
+                    <img src="{{ farmer.image.url }}" alt="{{ farmer.name }}">
+                    <h3>{{ farmer.name }}</h3>
+                    <p><strong>Location:</strong> {{ farmer.location }}</p>
+                    <p>{{ farmer.bio }}</p>
+                    <div class="rating">
+                        {% for i in 1|to:5 %}
+                            {% if i <= farmer.rating %}
+                                <span class="star">&#9733;</span>
+                            {% else %}
+                                <span class="star">&#9734;</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <button class="view-products" onclick="viewProducts('{{ farmer.name }}')">View Products</button>
+                </div>
+            {% empty %}
+                <p>No farmers found.</p>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="{% url 'privacy' %}">Privacy Policy</a>
+            <a href="{% url 'terms' %}">Terms of Service</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><img src="{% static 'images/twitter.png' %}" alt="Twitter"></a>
+            <a href="#"><img src="{% static 'images/facebook.png' %}" alt="Facebook"></a>
+            <a href="#"><img src="{% static 'images/instagram.png' %}" alt="Instagram"></a>
+        </div>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const menu = document.getElementById('menu');
+
+        hamburger.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
+
+        // Function to view products (just logs for now)
+        function viewProducts(farmerName) {
+            const farmer = {% for farmer in farmers %}
+                {% if farmer.name == farmerName %}
+                    {{ farmer }}
+                {% endif %}
+            {% endfor %}
+            if (farmer) {
+                alert(`${farmer.name}'s Products:\n- ${farmer.products.join("\n- ")}`);
+            }
+        }
+    </script>
+</body>
+</html>

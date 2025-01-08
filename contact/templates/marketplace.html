@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Marketplace - Oja Agbe Harvestify{% endblock %}
+
+{% block content %}
+<div class="search-filter-container">
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" placeholder="Search for products..." id="search-input">
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-container">
+        <select class="filter-select">
+            <option value="">Sort by: Price</option>
+            <option value="low-to-high">Low to High</option>
+            <option value="high-to-low">High to Low</option>
+        </select>
+        <select class="filter-select">
+            <option value="">Filter by Category</option>
+            <option value="fruits">Fruits</option>
+            <option value="vegetables">Vegetables</option>
+            <option value="spices">Spices</option>
+        </select>
+        <select class="filter-select">
+            <option value="">Filter by Location</option>
+            <option value="nigeria">Nigeria</option>
+            <option value="ghana">Ghana</option>
+            <option value="kenya">Kenya</option>
+        </select>
+        <select class="filter-select">
+            <option value="">Filter by Farm Rating</option>
+            <option value="5-star">5 Stars</option>
+            <option value="4-star">4 Stars</option>
+            <option value="3-star">3 Stars</option>
+        </select>
+    </div>
+</div>
+
+<!-- Featured Products -->
+<div class="product-container">
+    <h2>Featured Products</h2>
+    <!-- Product 1 -->
+    <div class="product-card">
+        <img src="{% static 'images/mango.png' %}" alt="Product 1">
+        <h3>Organic Mangoes</h3>
+        <p>Freshly harvested organic mangoes for sale. Taste the freshness!</p>
+        <div class="price">$15.99</div>
+        <a href="{% url 'checkout' %}">
+            <button class="buy-button">Buy Now</button>
+        </a>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card">
+        <img src="{% static 'images/tomato.png' %}" alt="Product 2">
+        <h3>Tomatoes</h3>
+        <p>Fresh, red, and ripe tomatoes picked just for you.</p>
+        <div class="price">$8.50</div>
+        <a href="{% url 'checkout' %}">
+            <button class="buy-button">Buy Now</button>
+        </a>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card">
+        <img src="{% static 'images/ginger.jpg' %}" alt="Product 3">
+        <h3>Ginger</h3>
+        <p>Spicy and fresh ginger for your culinary needs.</p>
+        <div class="price">$5.30</div>
+        <a href="{% url 'checkout' %}">
+            <button class="buy-button">Buy Now</button>
+        </a>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="product-card">
+        <img src="{% static 'images/avocado.jpg' %}" alt="Product 4">
+        <h3>Fresh Avocados</h3>
+        <p>High-quality avocados, perfect for any dish or snack.</p>
+        <div class="price">$12.99</div>
+        <a href="{% url 'checkout' %}">
+            <button class="buy-button">Buy Now</button>
+        </a>
+    </div>
+</div>
+
+<!-- Auction-Style Sales Section -->
+<div class="auction-container">
+    <h2>Auction-Style Sales</h2>
+
+    <!-- Auction Item 1 -->
+    <div class="auction-item">
+        <img src="{% static 'images/banana.jpg' %}" alt="Auction Item 1">
+        <div>
+            <h3>Premium Bananas</h3>
+            <p>Bid for fresh premium bananas at a discounted price!</p>
+            <div class="price">$7.99</div>
+        </div>
+        <button class="bid-button">Place Bid</button>
+    </div>
+
+    <!-- Auction Item 2 -->
+    <div class="auction-item">
+        <img src="{% static 'images/carrot.jpg' %}" alt="Auction Item 2">
+        <div>
+            <h3>Organic Carrots</h3>
+            <p>Bid now for organic carrots straight from the farm!</p>
+            <div class="price">$4.50</div>
+        </div>
+        <button class="bid-button">Place Bid</button>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Oja Agbe</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #3f51b5;
+      padding: 10px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    nav ul li a img {
+      width: 20px;
+      height: auto;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      background-color: #3f51b5;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    /* Main Content */
+    main {
+      padding: 20px;
+      background: white;
+      margin: 20px auto;
+      max-width: 800px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: #3f51b5;
+    }
+
+    h3 {
+      margin-top: 20px;
+      color: #3f51b5;
+    }
+
+    ul {
+      margin: 10px 0 20px 20px;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #3f51b5;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <ul>
+      <li><a href="{% url 'home' %}"><img src="{% static 'images/home (1).png' %}" alt="Home Icon">Home</a></li>
+      <li><a href="{% url 'product' %}"><img src="{% static 'images/product (1).png' %}" alt="Products Icon">Products</a></li>
+      <li><a href="{% url 'contact' %}"><img src="{% static 'images/contact (1).png' %}" alt="Contact Icon">Contact</a></li>
+      <li><a href="{% url 'about' %}"><img src="{% static 'images/about (1).png' %}" alt="About Icon">About</a></li>
+      <li><a href="{% url 'login' %}"><img src="{% static 'images/login (1).png' %}" alt="Login Icon">Login</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Header -->
+  <header>
+    <h1>Privacy Policy</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <h2>Introduction</h2>
+    <p>At Oja Agbe, we value your privacy and are committed to protecting your personal information. This Privacy Policy outlines the types of information we collect and how it is used, stored, and shared.</p>
+    
+    <h3>1. Information We Collect</h3>
+    <ul>
+      <li><strong>Personal Information:</strong> This includes your name, email address, and other details you provide when creating an account.</li>
+      <li><strong>Usage Data:</strong> Information on how you use our services, including IP addresses, device types, and browsing activities.</li>
+    </ul>
+
+    <h3>2. How We Use Your Information</h3>
+    <ul>
+      <li>To provide and improve our services.</li>
+      <li>To communicate with you regarding your account and our services.</li>
+      <li>To send you promotional content, with your consent.</li>
+    </ul>
+
+    <h3>3. Data Sharing</h3>
+    <p>We do not share your personal information with third parties, except in the following cases:</p>
+    <ul>
+      <li>To comply with legal obligations.</li>
+      <li>With trusted partners who assist us in operating our website and business, under strict confidentiality agreements.</li>
+    </ul>
+
+    <h3>4. Data Security</h3>
+    <p>We implement appropriate technical and organizational measures to protect your personal data from unauthorized access, alteration, or destruction.</p>
+
+    <h3>5. Your Rights</h3>
+    <ul>
+      <li>You have the right to access, update, or delete your personal information.</li>
+      <li>You can opt out of receiving promotional communications at any time.</li>
+    </ul>
+
+    <h3>6. Changes to This Policy</h3>
+    <p>We reserve the right to modify this Privacy Policy at any time. Changes will be posted on this page, and we will notify you via email or through our platform.</p>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved. | 
+      <a href="{% url 'terms' %}" style="color: white; text-decoration: underline;">Terms of Service</a> |
+      <a href="{% url 'contact' %}" style="color: white; text-decoration: underline;">Contact</a>
+    </p>
+  </footer>
+
+  <script>
+    // Highlight the active link in the navigation bar
+    const links = document.querySelectorAll("nav ul li a");
+    links.forEach(link => {
+      if (link.href === window.location.href) {
+        link.style.fontWeight = "bold";
+        link.style.textDecoration = "underline";
+      }
+    });
+  </script>
+</body>
+</html>

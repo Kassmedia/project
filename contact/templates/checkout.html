@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Checkout - Oja Agbe Harvestify{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffb800;
+        }
+
+        /* Checkout Section */
+        .checkout-container {
+            width: 80%;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkout-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .checkout-container .order-summary {
+            margin-bottom: 40px;
+        }
+
+        .order-summary table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .order-summary th, .order-summary td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .order-summary th {
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .order-summary td {
+            color: #555;
+        }
+
+        .order-summary .total {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .checkout-form {
+            margin-bottom: 30px;
+        }
+
+        .checkout-form input, .checkout-form select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .checkout-form input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout-form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>Oja Agbe Harvestify</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'marketplace' %}">Marketplace</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Checkout Section -->
+    <div class="checkout-container">
+        <h2>Checkout</h2>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h3>Order Summary</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fresh Organic Tomatoes</td>
+                        <td>2</td>
+                        <td>$10.00</td>
+                    </tr>
+                    <tr>
+                        <td>Mangoes from Green Valley</td>
+                        <td>1</td>
+                        <td>$5.00</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td></td>
+                        <td><strong>$25.00</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Shipping Information Form -->
+        <div class="checkout-form">
+            <h3>Shipping Information</h3>
+            <form action="{% url 'payment' %}" method="POST">
+                {% csrf_token %}
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full-name" required placeholder="Enter your full name">
+
+                <label for="address">Shipping Address</label>
+                <input type="text" id="address" name="address" required placeholder="Enter your address">
+
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" required placeholder="Enter your city">
+
+                <label for="country">Country</label>
+                <select id="country" name="country" required>
+                    <option value="nigeria">Nigeria</option>
+                    <option value="ghana">Ghana</option>
+                    <option value="kenya">Kenya</option>
+                    <option value="south-africa">South Africa</option>
+                </select>
+
+                <label for="postal-code">Postal Code</label>
+                <input type="text" id="postal-code" name="postal-code" required placeholder="Enter postal code">
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+
+                <input type="submit" value="Proceed to Payment">
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved. <a href="{% url 'payment' %}" class="payment-button">Pay with Bank</a></p>
+    </footer>
+
+</body>
+</html>

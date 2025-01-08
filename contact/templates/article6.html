@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Effective Pest Management | Oja Agbe Harvestify{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'style/article6.css' %}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    header nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 0.9em;
+    }
+
+    header nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    main h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    main p {
+      margin: 10px 0;
+    }
+
+    .article-meta {
+      font-size: 0.9em;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin: 20px 0;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .navigation a {
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+
+    .navigation a:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Oja Agbe Harvestify Blog</h1>
+    <nav>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'blog' %}">Blog</a>
+      <a href="{% url 'contact' %}">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>{% block article_title %}Effective Pest Management{% endblock %}</h2>
+    <p class="article-meta">{% block article_meta %}Published on March 2, 2024 by Wahab Olayinka{% endblock %}</p>
+
+    <img src="{% static 'images/pest.png' %}" alt="Effective Pest Management">
+
+    <p>{% block article_intro %}Pest management is an integral part of modern agriculture, aiming to protect crops from harmful insects, weeds, and diseases while minimizing harm to the environment. With a focus on sustainable practices, farmers can effectively manage pests to boost yields and ensure food security.{% endblock %}</p>
+
+    {% block article_content %}
+    <h3>Understanding Integrated Pest Management (IPM)</h3>
+    <p>Integrated Pest Management (IPM) is a holistic approach that combines biological, cultural, mechanical, and chemical methods to control pests. IPM emphasizes prevention and the use of environmentally friendly solutions.</p>
+
+    <h4>1. Biological Control</h4>
+    <p>This involves using natural predators, parasites, or pathogens to control pest populations. For example, introducing ladybugs to combat aphids.</p>
+
+    <h4>2. Cultural Practices</h4>
+    <p>Crop rotation, intercropping, and maintaining healthy soil can prevent the conditions that allow pests to thrive.</p>
+
+    <h4>3. Mechanical Methods</h4>
+    <p>Using physical barriers like nets, traps, or manually removing pests are effective mechanical solutions.</p>
+
+    <h4>4. Responsible Chemical Use</h4>
+    <p>When necessary, apply pesticides carefully and selectively to target pests without harming beneficial organisms or contaminating the ecosystem.</p>
+
+    <h3>Steps to Implement Effective Pest Management</h3>
+    <ul>
+      <li>Regularly monitor crops for signs of pest activity.</li>
+      <li>Identify the specific pests and understand their lifecycle.</li>
+      <li>Develop a plan that combines multiple control methods.</li>
+      <li>Evaluate the effectiveness of your pest management strategies.</li>
+    </ul>
+
+    <p>By adopting effective pest management practices, farmers can protect their crops, enhance productivity, and contribute to a sustainable agricultural ecosystem.</p>
+    {% endblock %}
+
+    <div class="navigation">
+      <a href="{% url 'article5' %}">← Previous Article</a>
+      <a href="{% url 'article1' %}">Next Article →</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Oja Agbe Harvestify Wahab Olayinka. All rights reserved.</p>
+  </footer>
+</body>
+</html>

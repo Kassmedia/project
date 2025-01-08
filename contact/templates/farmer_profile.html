@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Profile - Oja Agbe Harvestify</title>
+    <link rel="stylesheet" href="{% static 'css/farmer_profile.css' %}">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="hamburger" id="hamburger">&#9776;</div>
+            <ul id="menu">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'farmer_profile' %}">Farmer Profiles</a></li>
+                <li><a href="{% url 'product' %}">Products</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="profile-container">
+            <h2>Create or Edit Your Profile</h2>
+            <form id="farmer-profile-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="name">Farm Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your farm name" required>
+
+                <label for="bio">Farm Bio</label>
+                <textarea id="bio" name="bio" placeholder="Describe your farm and what you grow" rows="4" required></textarea>
+
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="Enter your farm's location" required>
+
+                <label for="products">Products</label>
+                <textarea id="products" name="products" placeholder="List the products you sell (e.g., tomatoes, lettuce)" rows="4" required></textarea>
+
+                <label for="image">Farm Image URL</label>
+                <input type="text" id="image" name="image" placeholder="Enter the image URL for your farm" required>
+
+                <button type="submit">Save Profile</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="{% url 'privacy' %}">Privacy Policy</a>
+            <a href="{% url 'terms' %}">Terms of Service</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><img src="{% static 'images/twitter (1).png' %}" alt="Twitter"></a>
+      <a href="#"><img src="{% static 'images/facebook (1).png' %}" alt="Facebook"></a>
+      <a href="#"><img src="{% static 'images/instagr.jpg' %}" alt="Instagram"></a>
+        </div>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+    </footer>
+
+    <script src="{% static 'js/farmer_profile.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government and NGO Partnerships - Oja Agbe Harvestify</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Assuming styles.css holds the CSS you included earlier -->
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            font-size: 18px;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #555;
+        }
+
+        /* Content Section */
+        .content-container {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 1000px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-header h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .content-header p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* Programs Section */
+        .program-section {
+            margin-bottom: 40px;
+        }
+
+        .program-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .programs {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .program-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            width: 30%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .program-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .program-card p {
+            font-size: 16px;
+        }
+
+        /* Partner Logos Section */
+        .partner-logos {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .partner-logos h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .partner-logos img {
+            width: 150px;
+            margin: 10px;
+            height: auto;
+        }
+
+        /* Call to Action Section */
+        .call-to-action {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .call-to-action h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .call-to-action p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #f4a261;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #e76f51;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>Oja Agbe Harvestify</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'marketplace' %}">Marketplace</a></li>
+                <li><a href="{% url 'community-forum' %}">Community Forum</a></li>
+                <li><a href="{% url 'seasonal-calendar' %}">Seasonal Calendar</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Content Section -->
+    <div class="content-container">
+        <div class="content-header">
+            <h2>Government and NGO Partnerships</h2>
+            <p>Oja Agbe is committed to empowering farmers through collaborations with government bodies and NGOs.</p>
+        </div>
+
+        <!-- Programs Section -->
+        <div class="program-section">
+            <h3>Available Programs & Support</h3>
+            <div class="programs">
+                <div class="program-card">
+                    <h3>Farm Subsidies</h3>
+                    <p>Grants and subsidies for farmers to access essential farming inputs.</p>
+                </div>
+                <div class="program-card">
+                    <h3>Training & Education</h3>
+                    <p>Workshops and educational programs aimed at improving farming techniques.</p>
+                </div>
+                <div class="program-card">
+                    <h3>Market Access</h3>
+                    <p>Connecting farmers to markets for better access to fair pricing and distribution.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Partner Logos Section -->
+        <div class="partner-logos">
+            <h3>Our Esteemed Partners</h3>
+            <div>
+                <img src="{% static 'images/NGO 1.png' %}" alt="Partner 1">
+                <img src="{% static 'images/NGO 2.jpg' %}" alt="Partner 2">
+                <img src="{% static 'images/NGO 3.jpg' %}" alt="Partner 3">
+            </div>
+        </div>
+
+        <!-- Call to Action Section -->
+        <div class="call-to-action">
+            <h3>Join Us in Empowering Farmers</h3>
+            <p>We invite governments and NGOs to collaborate with us and create lasting change for farmers.</p>
+            <a href="{% url 'contact' %}">
+                <button class="cta-button">Partner with Us</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
