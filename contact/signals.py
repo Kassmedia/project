@@ -11,13 +11,13 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, created, **kwargs):
     if created:
-        # Only create the UserProfile if the user is being created (not updated)
+        # Create the UserProfile only if the user is newly created
         UserProfile.objects.create(user=instance, fullname=instance.username)
     else:
-        # Ensure profile exists when the user already exists
-        if not hasattr(instance, 'profile'):  # Checking if the user has a profile
-            UserProfile.objects.create(user=instance, fullname=instance.username)
-        else:
+        # Ensure profile exists and update if necessary
+        profile, created = UserProfile.objects.get_or_create(user=instance)
+        
+        if not created:  # If the profile already existed, update it
             # Optionally update the profile here if needed
-            instance.profile.fullname = instance.username  # Update the fullname if required
-            instance.profile.save()
+            profile.fullname = instance.username  # Example update
+            profile.save()

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Privacy Settings</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fc;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Content */
+        .content {
+            padding: 20px;
+            background-color: white
+            ; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 600px; }
+            h2 {
+                color: #333;
+            }
+        
+            p {
+                color: #555;
+                line-height: 1.6;
+            }
+        
+            label {
+                display: block;
+                margin: 15px 0 5px;
+                font-weight: bold;
+            }
+        
+            select, button {
+                width: 100%;
+                padding: 10px;
+                margin: 5px 0 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+        
+            button {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+        
+            button:hover {
+                background-color: #45a049;
+            }
+        
+            /* Footer */
+            footer {
+                background-color: #333;
+                color: white;
+                padding: 10px;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+        
+            footer a {
+                color: #4CAF50;
+                text-decoration: none;
+            }
+        
+            footer a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head> <body> <!-- Header --> <header> <h1>Privacy Settings</h1> <nav> <a href="{% url 'dashboard' %}">Dashboard</a> <a href="{% url 'settings' %}">Settings</a> <a href="{% url 'update_privacy' %}">Privacy</a> <a href="{% url 'logout' %}">Logout</a> </nav> </header>
+     <!-- Main Content -->
+<div class="content">
+    <h2>Update Privacy Settings</h2>
+    <p>Adjust who can view your profile and access your information.</p>
+    
+    <form method="POST" action="{% url 'update_privacy' %}">
+        {% csrf_token %}
+        <label for="profile_visibility">Profile Visibility</label>
+        <select id="profile_visibility" name="profile_visibility">
+            <option value="public" {% if farmer_profile.profile_visibility == 'public' %}selected{% endif %}>Public</option>
+            <option value="private" {% if farmer_profile.profile_visibility == 'private' %}selected{% endif %}>Private</option>
+        </select>
+
+        <label for="contact_permissions">Allow Messages</label>
+        <select id="contact_permissions" name="contact_permissions">
+            <option value="anyone" {% if farmer_profile.contact_permissions == 'anyone' %}selected{% endif %}>Anyone</option>
+            <option value="connections" {% if farmer_profile.contact_permissions == 'connections' %}selected{% endif %}>Connections Only</option>
+            <option value="none" {% if farmer_profile.contact_permissions == 'none' %}selected{% endif %}>No One</option>
+        </select>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 YourCompany. All rights reserved. | <a href="#">Privacy Policy</a></p>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    document.querySelector('form').addEventListener('submit', (e) => {
+        alert('Your privacy settings have been updated successfully.');
+    });
+</script>
+      

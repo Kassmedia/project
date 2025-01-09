@@ -52,15 +52,16 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('subscribe/', views.subscribe, name='subscribe'),
     path('terms/', views.terms, name='terms'),
-    path('track-order/', views.trackOrder, name='track-order'),
+    path('create-order/', views.create_order, name='create_order'),
+    path('track-order/<str:tracking_number>/', views.track_order, name='track_order'),
     path('ussd-payment/', views.ussdPayment, name='ussd-payment'),
     path('welcome/', views.welcome, name='welcome'),
     path('blog/', views.blog_post, name='blog'),
     path('list-product/', views.list_product, name='list_product'),
-   
+    path('verify-payment/', views.verify_payment, name='verify_payment'),
     path('notifications/', views.notifications_view, name='notifications'),
     path('change-password/', views.change_password_view, name='change_password'),
-    path('edit-profile/', views.edit_profile_view, name='edit_profile'),
+    path('edit-profile/', views.edit_profile, name='edit_profile'),
     path('products/', views.product_list, name='product_list'),
     path('add_post/', views.add_post, name='add_post'),
     path('add_event/', views.add_event, name='add_event'),
@@ -68,6 +69,12 @@ urlpatterns = [
     path('feedback-success/', views.addfeedback, name='feedback_success'),
     path('submit-product/', views.submit_product, name='submit_product'),
     path('success/', views.success_page, name='success_page'),
+    path('dashboardOverview_view/', views.dashboard_view, name='dashboardoverview'),
+    path('settings/', views.settings_view, name='settings'),
+    path('update_privacy/', views.update_privacy, name='update_privacy'),
+    path('messages/', views.messages_view, name='messages'),
+    path('help/', views.help_support_view, name='help_support'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

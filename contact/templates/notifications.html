@@ -5,12 +5,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notifications - Oja Agbe Harvestify</title>
-    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #hamburger {
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        #menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        #menu li {
+            display: inline;
+        }
+
+        #menu a {
+            text-decoration: none;
+            color: white;
+            padding: 5px 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        #menu a:hover {
+            background-color: #45a049;
+            border-radius: 4px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .notifications-container {
+            max-width: 700px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        #notifications-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .notification-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item.read {
+            background-color: #f0f0f0;
+        }
+
+        .notification-item.unread {
+            background-color: #e9ffe9;
+        }
+
+        .notification-item:hover {
+            background-color: #d4f7d4;
+        }
+
+        .notification-item p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .notification-item small {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 30px;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #45a049;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Header -->
     <header>
         <nav>
-            <div class="hamburger" id="hamburger">&#9776;</div>
+            <div id="hamburger">&#9776;</div>
             <ul id="menu">
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'farmer_profile' %}">Farmer Profiles</a></li>
@@ -24,6 +156,7 @@
         </nav>
     </header>
 
+    <!-- Main Content -->
     <main>
         <section class="notifications-container">
             <h2>Your Notifications</h2>
@@ -40,6 +173,7 @@
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-links">
             <a href="{% url 'privacy' %}">Privacy Policy</a>
@@ -49,6 +183,12 @@
         <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
     </footer>
 
-    <script src="{% static 'js/notifications.js' %}"></script>
+    <script>
+        // Add functionality for hamburger menu (optional)
+        document.getElementById('hamburger').addEventListener('click', function () {
+            const menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'none' || !menu.style.display ? 'flex' : 'none';
+        });
+    </script>
 </body>
 </html>

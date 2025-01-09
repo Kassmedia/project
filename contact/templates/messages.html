@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #d9d9d9;
+        }
+
+        .content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .message-list {
+            margin: 0;
+            padding: 0;
+        }
+
+        .message-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .message-item:last-child {
+            border-bottom: none;
+        }
+
+        .message-item p {
+            margin: 0;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .message-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .message-btn:hover {
+            background-color: #45a049;
+        }
+
+        .compose-btn {
+            display: block;
+            margin: 20px auto;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .compose-btn:hover {
+            background-color: #45a049;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .modal h3 {
+            margin: 0 0 15px;
+        }
+
+        .modal textarea {
+            width: 100%;
+            height: 80px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            resize: none;
+        }
+
+        .modal button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .modal button:hover {
+            background-color: #45a049;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Messages</h1>
+        <nav>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'settings' %}">Settings</a>
+            <a href="{% url 'messages' %}">Messages</a>
+            <a href="{% url 'help_support' %}">Help & Support</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h2>Your Messages</h2>
+        
+        <div class="message-list">
+            <!-- Message List -->
+            <div class="message-item">
+                <p><strong>John Doe:</strong> Hey! Let's catch up soon.</p>
+                <p class="message-time">5 mins ago</p>
+                <button class="message-btn" onclick="replyMessage('John Doe')">Reply</button>
+            </div>
+
+            <div class="message-item">
+                <p><strong>Jane Smith:</strong> Your report looks great!</p>
+                <p class="message-time">2 hours ago</p>
+                <button class="message-btn" onclick="replyMessage('Jane Smith')">Reply</button>
+            </div>
+
+            <div class="message-item">
+                <p><strong>Alex Johnson:</strong> Meeting rescheduled to 3 PM.</p>
+                <p class="message-time">1 day ago</p>
+                <button class="message-btn" onclick="replyMessage('Alex Johnson')">Reply</button>
+            </div>
+        </div>
+
+        <button class="compose-btn" onclick="composeMessage()">Compose New Message</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="overlay" id="overlay" onclick="closeModal()"></div>
+    <div class="modal" id="modal">
+        <h3 id="modal-title"></h3>
+        <textarea id="modal-textarea" placeholder="Type your message here..."></textarea>
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 YourCompany. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function composeMessage() {
+            document.getElementById('modal-title').innerText = 'Compose New Message';
+            document.getElementById('modal-textarea').value = '';
+            openModal();
+        }
+
+        function replyMessage(recipient) {
+            document.getElementById('modal-title').innerText = 'Reply to ' + recipient;
+            document.getElementById('modal-textarea').value = '';
+            openModal();
+        }
+
+        function openModal() {
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function sendMessage() {
+            const message = document.getElementById('modal-textarea').value.trim();
+            if (message) {
+                alert('Message sent: ' + message);
+                closeModal();
+            } else {
+                alert('Please type a message before sending.');
+            }
+        }
+        
+    </script>
+</body>
+</html>

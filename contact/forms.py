@@ -112,7 +112,14 @@ class UserRegistrationForm(UserCreationForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['order_number', 'product_name', 'tracking_number', 'delivery_date', 'status', 'current_location']
+        fields = [
+            'order_number',
+            'product_name',
+            'tracking_number',
+            'estimated_delivery_date',
+            'current_status',
+            'current_location',
+        ]
 
 
 class ProductListingForm(forms.ModelForm):
@@ -169,3 +176,8 @@ class AddFeedbackForm(forms.ModelForm):
                 'placeholder': 'Write your feedback here'
            }),
         }
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = FarmerProfile
+        fields = ['user', 'name', 'bio', 'location', 'image', 'products']

@@ -5,62 +5,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile - Oja Agbe Harvestify</title>
-    <link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
 </head>
-<body>
-    <header>
+<body style="margin: 0; font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333;">
+
+    <!-- Header -->
+    <header style="background-color: #4CAF50; padding: 10px 20px; color: white; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <div id="hamburger" style="cursor: pointer; font-size: 24px;">&#9776;</div>
+        </div>
         <nav>
-            <div class="hamburger" id="hamburger">&#9776;</div>
-            <ul id="menu">
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'farmer_profile' %}">Farmer Profiles</a></li>
-                <li><a href="{% url 'product' %}">Products</a></li>
-                <li><a href="{% url 'contact' %}">Contact</a></li>
-                <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
+            <ul id="menu" style="list-style: none; padding: 0; margin: 0; display: flex; gap: 15px;">
+                <li><a href="{% url 'home' %}" style="text-decoration: none; color: white;">Home</a></li>
+                <li><a href="{% url 'farmer_profile' %}" style="text-decoration: none; color: white;">Farmer Profiles</a></li>
+                <li><a href="{% url 'product' %}" style="text-decoration: none; color: white;">Products</a></li>
+                <li><a href="{% url 'contact' %}" style="text-decoration: none; color: white;">Contact</a></li>
+                <li><a href="{% url 'edit_profile' %}" style="text-decoration: none; color: white;">Edit Profile</a></li>
+                <li><a href="{% url 'login' %}" style="text-decoration: none; color: white;">Login</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section class="edit-profile-container">
-            <h2>Edit Your Profile</h2>
+    <!-- Main Content -->
+    <main style="padding: 20px;">
+        <section class="edit-profile-container" style="max-width: 600px; margin: 20px auto; background-color: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px;">
+            <h2 style="margin-bottom: 20px; color: #4CAF50; font-size: 24px;">Edit Your Profile</h2>
             <form id="edit-profile-form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label for="name">Farm Name</label>
-                <input type="text" id="name" name="name" value="{{ profile.name }}" required>
+                
+                <label for="name" style="display: block; margin-bottom: 5px; font-weight: bold;">Farm Name</label>
+                <input type="text" id="name" name="name" value="{{ profile.name }}" required 
+                       style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
 
-                <label for="bio">Farm Bio</label>
-                <textarea id="bio" name="bio" rows="4" required>{{ profile.bio }}</textarea>
+                <label for="bio" style="display: block; margin-bottom: 5px; font-weight: bold;">Farm Bio</label>
+                <textarea id="bio" name="bio" rows="4" required 
+                          style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">{{ profile.bio }}</textarea>
 
-                <label for="location">Location</label>
-                <input type="text" id="location" name="location" value="{{ profile.location }}" required>
+                <label for="location" style="display: block; margin-bottom: 5px; font-weight: bold;">Location</label>
+                <input type="text" id="location" name="location" value="{{ profile.location }}" required 
+                       style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
 
-                <label for="products">Products</label>
-                <textarea id="products" name="products" rows="4" required>{{ profile.products }}</textarea>
+                <label for="products" style="display: block; margin-bottom: 5px; font-weight: bold;">Products</label>
+                <textarea id="products" name="products" rows="4" required 
+                          style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">{{ profile.products }}</textarea>
 
-                <label for="image">Farm Image</label>
-                <input type="file" id="image" name="image">
+                <label for="image" style="display: block; margin-bottom: 5px; font-weight: bold;">Farm Image</label>
+                <input type="file" id="image" name="image" 
+                       style="margin-bottom: 15px;">
 
                 {% if profile.image %}
-                    <p>Current Image:</p>
-                    <img src="{{ profile.image.url }}" alt="Farm Image" width="150">
+                    <p style="margin: 10px 0; font-size: 14px;">Current Image:</p>
+                    <img src="{{ profile.image.url }}" alt="Farm Image" width="150" style="margin-bottom: 15px; border-radius: 8px;">
                 {% endif %}
 
-                <button type="submit">Update Profile</button>
+                <button type="submit" 
+                        style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                    Update Profile
+                </button>
             </form>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-links">
-            <a href="{% url 'privacy' %}">Privacy Policy</a>
-            <a href="{% url 'terms' %}">Terms of Service</a>
-            <a href="{% url 'contact' %}">Contact</a>
+    <!-- Footer -->
+    <footer style="background-color: #333; color: white; text-align: center; padding: 10px 0;">
+        <div style="margin-bottom: 10px;">
+            <a href="{% url 'privacy' %}" style="color: #4CAF50; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+            <a href="{% url 'terms' %}" style="color: #4CAF50; text-decoration: none; margin: 0 10px;">Terms of Service</a>
+            <a href="{% url 'contact' %}" style="color: #4CAF50; text-decoration: none; margin: 0 10px;">Contact</a>
         </div>
         <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
     </footer>
 
-    <script src="{% static 'js/edit_profile.js' %}"></script>
+    <!-- JavaScript -->
+    <script>
+        // Add functionality for hamburger menu (optional)
+        document.getElementById('hamburger').addEventListener('click', function () {
+            const menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'none' || !menu.style.display ? 'flex' : 'none';
+        });
+    </script>
 </body>
 </html>

@@ -168,7 +168,7 @@
         </div>
 
         <!-- Retry Button -->
-        <a href="{% url 'payment' %}" class="payment-button" id="retry-button" style="display: none;">Retry Payment</a>
+        <button id="payButton" class="payment-button">Pay Now</button>
     </div>
 
     <!-- Footer -->
@@ -176,24 +176,56 @@
         <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
     </footer>
 
+    <!-- Flutterwave Script -->
+    <script type="text/javascript" src="https://checkout.flutterwave.com/v3.js"></script>
     <script>
         const paymentStatus = document.getElementById("payment-status");
-        const retryButton = document.getElementById("retry-button");
+        const payButton = document.getElementById("payButton");
 
-        // Simulate payment success after 5 seconds
-        setTimeout(() => {
-            paymentStatus.textContent = "Your payment was successfully processed!";
-            paymentStatus.classList.add("success");
-        }, 5000);
-
-        // Simulate an error after 10 seconds
-        setTimeout(() => {
-            paymentStatus.textContent = "Oops! Something went wrong. Please try again.";
-            paymentStatus.classList.remove("success");
-            paymentStatus.classList.add("error");
-            retryButton.style.display = "block";
-        }, 10000);
+        payButton.addEventListener("click", function () {
+            FlutterwaveCheckout({
+                public_key: "FLWPUBK_TEST-6ba2411d842472dd309ba302a3813da8-X", // Replace with your Flutterwave public key
+                tx_ref: "OjaAgbe-TX-" + Date.now(), // Unique transaction reference
+                amount: 5000, // Replace with your amount
+                currency: "NGN", // Change to your preferred currency (e.g., USD, NGN)
+                payment_options: "card, banktransfer, ussd",
+                customer: {
+                    email: "{{ request.user.email }}",  // Use logged-in user's email if available
+                    phone_number: "{{ request.user.phone_number }}", // Ensure the user model has phone_number
+                    name: "{{ request.user.username }}",
+                },
+                
+                callback: function (data) {
+                    const txRef = data.tx_ref;
+                
+                    fetch(`/verify-payment/?tx_ref=${txRef}`)
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.status === "success") {
+                                paymentStatus.textContent = "Your payment was successfully verified!";
+                                paymentStatus.classList.add("success");
+                            } else {
+                                paymentStatus.textContent = "Payment verification failed. Please try again.";
+                                paymentStatus.classList.add("error");
+                            }
+                        })
+                        .catch(error => {
+                            paymentStatus.textContent = "An error occurred during verification.";
+                            paymentStatus.classList.add("error");
+                        });
+                },
+                
+                onclose: function () {
+                    paymentStatus.textContent = "Payment window closed.";
+                    paymentStatus.classList.add("error");
+                },
+                customizations: {
+                    title: "Oja Agbe Harvestify",
+                    description: "Payment for items in cart",
+                    logo: "https://via.placeholder.com/150" // Add your business logo URL
+                },
+            });
+        });
     </script>
-
 </body>
 </html>

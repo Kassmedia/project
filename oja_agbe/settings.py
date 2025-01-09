@@ -153,7 +153,8 @@ LOGIN_URL = '/login/'  # Replace with the correct login path
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTHENTICATION_BACKENDS = [
+    'oja_agbe.authentication.EmailBackend',  # Custom backend path
     'django.contrib.auth.backends.ModelBackend',  # Default backend
-  #  'contact.backends.EmailBackend',       # Custom email backend
 ]
+
 

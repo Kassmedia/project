@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Help & Support</h1>
+        <nav>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'settings' %}">Settings</a>
+            <a href="{% url 'messages' %}">Messages</a>
+            <a href="{% url 'help_support' %}">Help & Support</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        
+        <div class="faq-item">
+            <h3>How can I reset my password?</h3>
+            <p>You can reset your password by going to the settings page and clicking on "Change Password".</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I update my profile information?</h3>
+            <p>Your profile can be updated on the settings page. You can change your username, email, and other details.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I contact support?</h3>
+            <p>If you need further assistance, please fill out the support form below.</p>
+        </div>
+
+        <h2>Contact Support</h2>
+        <form action="#" method="POST">
+            <label for="issue">Describe your issue:</label>
+            <textarea id="issue" name="issue" rows="4" required></textarea><br>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 YourCompany. All rights reserved.</p>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

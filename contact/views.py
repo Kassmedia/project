@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
-from .forms import ContactFormModel, LoginForm, SignUpForm
+from .forms import ProductForm, ContactForm, ContactFormModel, LoginForm, SignUpForm
 from .models import ContactForm, UserProfile
 from django.http import HttpResponse
 from .models import Order
@@ -10,7 +10,7 @@ from .models import Farmer
 from .models import Month, Product
 from .forms import ProductListingForm, ContactForm
 from django.core.mail import send_mail
-from .forms import ProductForm, ContactForm
+
 from .forms import FarmerProfileForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
@@ -26,8 +26,14 @@ from .models import Event
 from .forms import AddEventForm
 from .models import Feedback
 from .forms import AddFeedbackForm
-from django.views.decorators.csrf import csrf_exempt
+from pathlib import Path  # Correct way to import
+from .forms import EditProfileForm
 from django.contrib.auth import authenticate, login
+from django.core.paginator import Paginator
+import requests
+from .models import Order
+from django.utils.timezone import now
+import uuid
 
 
 # Contact View
@@ -77,7 +83,7 @@ def login_view(request):
         form = LoginForm()
         print("[DEBUG] Rendering login page.")  # Debug rendering info
 
-    return render(request, '/login.html', {'form': form})
+    return render(request, 'login.html', {'form': form})
 
 # Signup View
 def signup_view(request):
@@ -207,11 +213,20 @@ def farmer_profile(request):
     return render(request, 'farmer_profile.html', {'farmers': farmers})
 
 def FarmerProfiles(request):
+    # Fetch all farmers
     farmers = Farmer.objects.all()
-    return render(request, 'Farmer Profiles.html', {'farmers': farmers})
 
-def data_analysis(request):
-    return render(request, 'data analysis.html')
+    # Set the number of farmers to display per page
+    paginator = Paginator(farmers, 10)  # Show 10 farmers per page
+
+    # Get the current page number from the GET request
+    page_number = request.GET.get('page')
+
+    # Get the farmers for the current page
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'Farmer Profiles.html', {'page_obj': page_obj})
+
 
 def Government_NGO_Paternership(request):
     return render(request, 'Government NGO Patnerships.html')
@@ -296,8 +311,10 @@ def payment(request):
 def terms(request):
     return render(request, 'terms.html')
 
-def trackOrder(request):
-    return render(request, 'track order.html')
+# View to track an order
+def track_order(request, tracking_number):
+    order = get_object_or_404(Order, tracking_number=tracking_number)
+    return render(request, 'create_order.html', {'order': order})
 
 def ussdPayment(request):
     return render(request, 'ussd-payment.html')
@@ -323,8 +340,11 @@ def list_product(request):
             form.save()
             messages.success(request, 'Your product has been listed successfully!')
             return redirect('list_product')
+        else:
+            messages.error(request, 'Please correct the errors below.')
     else:
         form = ProductForm()
+
     return render(request, 'list_product.html', {'form': form})
 
 def contact_us(request):
@@ -332,17 +352,21 @@ def contact_us(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            # Send email notification
-            send_mail(
-                subject='New Contact Message',
-                message=f"Message from {form.cleaned_data['name']} ({form.cleaned_data['email']}):\n\n{form.cleaned_data['message']}",
-                from_email='no-reply@example.com',
-                recipient_list=['support@example.com'],
-            )
-            messages.success(request, 'Your message has been sent successfully!')
+            try:
+                # Send email notification
+                send_mail(
+                    subject='New Contact Message',
+                    message=f"Message from {form.cleaned_data['name']} ({form.cleaned_data['email']}):\n\n{form.cleaned_data['message']}",
+                    from_email='no-reply@example.com',
+                    recipient_list=['support@example.com'],
+                )
+                messages.success(request, 'Your message has been sent successfully!')
+            except Exception as e:
+                messages.error(request, f"Error sending email: {str(e)}")
             return redirect('contact_us')
     else:
         form = ContactForm()
+    
     return render(request, 'contact_us.html', {'form': form})
 
 def farmer_profile_view(request):
@@ -356,8 +380,9 @@ def farmer_profile_view(request):
     return render(request, 'farmer_profile.html', {'form': form})
 
 
+
 @login_required
-def edit_profile_view(request):
+def edit_profile(request):
     profile = get_object_or_404(FarmerProfile, user=request.user)  # Assuming the profile is linked to the user
     if request.method == 'POST':
         form = FarmerProfileForm(request.POST, request.FILES, instance=profile)
@@ -401,10 +426,7 @@ def notifications_view(request):
     ]
     return render(request, 'notifications.html', {'notifications': notifications})
 
-def product_list(request):
-    # Fetch available products (adjust according to your model)
-    available_products = Product.objects.all()  # Modify according to your model query
-    return render(request, 'product_list.html', {'available_products': available_products})
+
 
 def add_post(request):
     if request.method == "POST":
@@ -476,3 +498,94 @@ def product_list(request):
     return render(request, 'product_list.html', {'products': products})
 
 
+# Dashboard View
+def dashboardOverview_view(request):
+    return render(request, 'dashboardOver.html')
+
+# Settings View
+def settings_view(request):
+    return render(request, 'settings.html')
+
+# Messages View
+def messages_view(request):
+    return render(request, 'messages.html')
+
+# Help & Support View
+def help_support_view(request):
+    return render(request, 'help_support.html')
+
+
+@login_required
+def update_privacy(request):
+    user = request.user
+    farmer_profile = FarmerProfile.objects.get(user=user)
+
+    if request.method == 'POST':
+        profile_visibility = request.POST.get('profile_visibility')
+        contact_permissions = request.POST.get('contact_permissions')
+
+        farmer_profile.profile_visibility = profile_visibility
+        farmer_profile.contact_permissions = contact_permissions
+        farmer_profile.save()
+
+        messages.success(request, 'Privacy settings updated successfully.')
+        return redirect('update_privacy')
+
+    return render(request, 'update_privacy.html', {'farmer_profile': farmer_profile})
+
+@login_required
+def edit_profile(request):
+    # Ensure FarmerProfile exists for the logged-in user
+    farmer_profile, created = FarmerProfile.objects.get_or_create(user=request.user)
+
+    if request.method == "POST":
+        form = EditProfileForm(request.POST, instance=farmer_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('settings')  # Redirect to settings or desired page
+    else:
+        form = EditProfileForm(instance=farmer_profile)
+
+    return render(request, 'edit_profile.html', {'form': form})
+
+
+FLUTTERWAVE_SECRET_KEY = 'FLWSECK_TEST-02fbde086dfcae4f1ddd4a8878827c40-X'  # Replace with your secret key
+
+def verify_payment(request):
+    tx_ref = request.GET.get('tx_ref')  # Get transaction reference from the callback
+
+    if not tx_ref:
+        return JsonResponse({'status': 'error', 'message': 'Transaction reference is missing'}, status=400)
+
+    # Verify transaction with Flutterwave API
+    url = f"https://api.flutterwave.com/v3/transactions/{tx_ref}/verify"
+    headers = {'Authorization': f'Bearer {FLUTTERWAVE_SECRET_KEY}'}
+
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        if data['status'] == 'success' and data['data']['status'] == 'successful':
+            # Process successful payment
+            return JsonResponse({'status': 'success', 'message': 'Payment verified'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Payment not successful'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Unable to verify payment'}, status=500)
+
+# View to create an order
+def create_order(request):
+    if request.method == 'POST':
+        product_name = request.POST.get('product_name')
+        estimated_delivery_date = request.POST.get('estimated_delivery_date')
+        tracking_number = f"TN{uuid.uuid4().hex[:10].upper()}"
+        order_number = f"#{uuid.uuid4().hex[:6].upper()}"
+
+        order = Order.objects.create(
+            product_name=product_name,
+            tracking_number=tracking_number,
+            order_number=order_number,
+            estimated_delivery_date=estimated_delivery_date,
+        )
+        return redirect('track_order', tracking_number=tracking_number)
+
+    return render(request, 'create_order.html')

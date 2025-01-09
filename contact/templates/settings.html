@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fc;
+        }
+    
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+    
+        header h1 {
+            margin: 0;
+        }
+    
+        header nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+    
+        header nav a:hover {
+            text-decoration: underline;
+        }
+    
+        /* Content */
+        .content {
+            padding: 20px;
+            background-color: white;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+    
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    
+        /* Form Styles */
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+    
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+    
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #555;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+    
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 6px rgba(76, 175, 80, 0.5);
+            outline: none;
+        }
+    
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+    
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+    
+        button:active {
+            transform: translateY(0);
+        }
+    
+        /* Section Styling */
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+    
+        .section h3 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+    
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content {
+                padding: 15px;
+            }
+    
+            input[type="text"],
+            input[type="email"],
+            input[type="password"],
+            select,
+            textarea {
+                font-size: 14px;
+            }
+    
+            button {
+                font-size: 14px;
+            }
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+    
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    
+    </head> <body> <!-- Header --> <header> <h1>Settings</h1> <nav> <a href="{% url 'dashboard' %}">Dashboard</a> <a href="{% url 'settings' %}">Settings</a> <a href="{% url 'messages' %}">Messages</a> <a href="{% url 'help_support' %}">Help & Support</a> <a href="{% url 'logout' %}">Logout</a> </nav> </header>
+        <!-- Main Content -->
+<div class="content">
+    <h2>Manage Your Settings</h2>
+    <p>Here you can update your profile, preferences, and privacy settings.</p>
+
+    <!-- Update Farmer Profile -->
+    <div class="section">
+        <h3>Update Farmer Profile</h3>
+        <form method="POST" action="{% url 'edit_profile' %}">
+            {% csrf_token %}
+            <label for="username">Full Name:</label>
+            <input type="text" id="username" name="username" value="{{ user.username }}" required>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" value="{{ farmer_profile.phone }}" required>
+
+            <label for="location">Farm Location:</label>
+            <input type="text" id="location" name="location" value="{{ farmer_profile.location }}" required>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+
+    <!-- Change Password -->
+    <div class="section">
+        <h3>Change Password</h3>
+        <form method="POST" action="{% url 'change_password' %}">
+            {% csrf_token %}
+            <label for="current_password">Current Password:</label>
+            <input type="password" id="current_password" name="current_password" required>
+
+            <label for="new_password">New Password:</label>
+            <input type="password" id="new_password" name="new_password" required>
+
+            <label for="confirm_password">Confirm New Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+
+            <button type="submit">Change Password</button>
+        </form>
+    </div>
+
+    <!-- Notification Preferences -->
+    <div class="section">
+        <h3>Notification Preferences</h3>
+        <form method="POST" action="{% url 'notifications' %}">
+            {% csrf_token %}
+            <label for="notifications">Preferred Notification Method:</label>
+            <select id="notifications" name="notifications">
+                <option value="email" {% if farmer_profile.notifications == 'email' %}selected{% endif %}>Email</option>
+                <option value="sms" {% if farmer_profile.notifications == 'sms' %}selected{% endif %}>SMS</option>
+                <option value="push" {% if farmer_profile.notifications == 'push' %}selected{% endif %}>Push Notifications</option>
+            </select>
+
+            <button type="submit">Update Preferences</button>
+        </form>
+    </div>
+
+    <!-- Privacy Settings -->
+    <div class="section">
+        <h3>Privacy Settings</h3>
+        <form method="POST" action="{% url 'update_privacy' %}">
+            {% csrf_token %}
+            <label for="profile_visibility">Profile Visibility:</label>
+            <select id="profile_visibility" name="profile_visibility">
+                <option value="public" {% if farmer_profile.profile_visibility == 'public' %}selected{% endif %}>Public</option>
+                <option value="private" {% if farmer_profile.profile_visibility == 'private' %}selected{% endif %}>Private</option>
+            </select>
+
+            <button type="submit">Save Privacy Settings</button>
+        </form>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 YourCompany. All rights reserved. | <a href="#">Privacy Policy</a></p>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    /**
+     * Example: Add interactivity to the forms (e.g., dynamic validation).
+     */
+    const confirmPasswordField = document.getElementById('confirm_password');
+    confirmPasswordField.addEventListener('input', () => {
+        const newPasswordField = document.getElementById('new_password');
+        if (confirmPasswordField.value !== newPasswordField.value) {
+            confirmPasswordField.setCustomValidity("Passwords don't match");
+        } else {
+            confirmPasswordField.setCustomValidity("");
+        }
+    });
+</script>

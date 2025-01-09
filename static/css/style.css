@@ -284,3 +284,123 @@ ul {
         font-size: 0.8em; /* Slightly smaller footer text for mobile view */
     }
 }
+
+
+/* Content */
+.content {
+    padding: 20px;
+    background-color: white;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.message-list {
+    margin-top: 20px;
+}
+
+.message-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.message-time {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.compose-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.compose-btn:hover {
+    background-color: #45a049;
+}
+
+/* FAQ Section */
+.faq-item {
+    margin-bottom: 15px;
+}
+
+.faq-item h3 {
+    margin: 10px 0;
+}
+
+.faq-item p {
+    color: #555;
+}
+
+/* Form Styling */
+form {
+    margin-top: 20px;
+}
+
+form label {
+    font-size: 1rem;
+}
+
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

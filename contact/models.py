@@ -1,7 +1,9 @@
+from asyncio.log import logger
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, User
 from django.utils.timezone import now
 from django.contrib.auth.backends import BaseBackend
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class ContactForm(models.Model):
@@ -48,21 +50,24 @@ class Product(models.Model):
 
 class Order(models.Model):
     STATUS_CHOICES = [
+        ('placed', 'Order Placed'),
         ('shipped', 'Shipped'),
-        ('pending', 'Pending'),
+        ('sorting', 'Sorting'),
+        ('out_for_delivery', 'Out for Delivery'),
         ('delivered', 'Delivered'),
     ]
 
-    order_number = models.CharField(max_length=50, unique=True)
-    product_name = models.CharField(max_length=100)
-    tracking_number = models.CharField(max_length=100)
-    delivery_date = models.DateField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
-    current_location = models.CharField(max_length=100, blank=True, null=True)
+    order_number = models.CharField(max_length=20, unique=True)
+    product_name = models.CharField(max_length=255)
+    tracking_number = models.CharField(max_length=50, unique=True)
+    estimated_delivery_date = models.DateField()
+    current_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='placed')
     last_updated = models.DateField(auto_now=True)
+    current_location = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return f"Order {self.order_number} - {self.product_name}"
+        return self.order_number
+
 
 
 class ProductListing(models.Model):
@@ -162,15 +167,24 @@ class Feedback(models.Model):
 
 class EmailBackend(BaseBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
+        if username is None or password is None:
+            return None  # Return None if username or password is missing
+
         try:
+            # Check if the user exists with the provided email (username)
             user = User.objects.get(email=username)
-            if user.check_password(password):
-                return user
-        except User.DoesNotExist:
+        except ObjectDoesNotExist:
+            return None  # Return None if no user is found with the provided email
+
+        # Check if the user provided the correct password
+        if user.check_password(password):
+            return user
+        else:
+            logger.error(f"Incorrect password for user: {username}")
             return None
 
     def get_user(self, user_id):
         try:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
-            return None
+            return None  # Return None if the user does not exist
