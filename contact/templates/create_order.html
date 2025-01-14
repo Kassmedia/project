@@ -91,6 +91,26 @@
         nav ul li a:hover {
             text-decoration: underline;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #28a745;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
     </style>
 </head>
 <body>
@@ -100,14 +120,14 @@
 
     <nav>
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/contact/create-order/">Create Order</a></li>
-            
-            <li><a href="/contact/about/">About Us</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'create_order' %}">Create Order</a></li>
+            <li><a href="{% url 'track_order_home' %}">Track Order</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
         </ul>
     </nav>
 
-    <div class="container" id="app">
+    <div class="container">
         <!-- Create Order Section -->
         <div id="create-order">
             <h2>Create an Order</h2>
@@ -124,19 +144,53 @@
         </div>
 
         <!-- Track Order Section -->
-        {% if order %}
         <div id="track-order">
             <h2>Track Your Order</h2>
-            <div class="order-details">
-                <p><strong>Order Number:</strong> {{ order.order_number }}</p>
-                <p><strong>Product:</strong> {{ order.product_name }}</p>
-                <p><strong>Tracking Number:</strong> {{ order.tracking_number }}</p>
-                <p><strong>Estimated Delivery Date:</strong> {{ order.estimated_delivery_date }}</p>
-                <p><strong>Current Status:</strong> <span class="status">{{ order.get_current_status_display }}</span></p>
-                <p><strong>Last Updated:</strong> {{ order.last_updated }}</p>
-                <p><strong>Current Location:</strong> {{ order.current_location }}</p>
-            </div>
+            <form method="POST" action="{% url 'track_order_home' %}">
+                {% csrf_token %}
+                <label for="tracking_number">Enter Tracking Number</label>
+                <input type="text" id="tracking_number" name="tracking_number" placeholder="Enter your tracking number" required>
+                <button type="submit">Track Order</button>
+            </form>
         </div>
+
+        <!-- Order Details Section -->
+        {% if order %}
+        <div class="order-details">
+            <h3>Order Details</h3>
+            <table>
+                <tr>
+                    <th>Order Number</th>
+                    <td>{{ order.order_number }}</td>
+                </tr>
+                <tr>
+                    <th>Product</th>
+                    <td>{{ order.product_name }}</td>
+                </tr>
+                <tr>
+                    <th>Tracking Number</th>
+                    <td>{{ order.tracking_number }}</td>
+                </tr>
+                <tr>
+                    <th>Estimated Delivery Date</th>
+                    <td>{{ order.estimated_delivery_date }}</td>
+                </tr>
+                <tr>
+                    <th>Current Status</th>
+                    <td><span class="status">{{ order.get_current_status_display }}</span></td>
+                </tr>
+                <tr>
+                    <th>Last Updated</th>
+                    <td>{{ order.last_updated }}</td>
+                </tr>
+                <tr>
+                    <th>Current Location</th>
+                    <td>{{ order.current_location }}</td>
+                </tr>
+            </table>
+        </div>
+        {% else %}
+        <p>No order details available. Please enter a valid tracking number.</p>
         {% endif %}
     </div>
 

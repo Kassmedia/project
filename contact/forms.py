@@ -181,3 +181,5 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model = FarmerProfile
         fields = ['user', 'name', 'bio', 'location', 'image', 'products']
+
+

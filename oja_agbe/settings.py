@@ -140,12 +140,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
 
+# settings.py
+
+# Email Backend Configuration for Elastic Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your-email@gmail.com'
-EMAIL_HOST_PASSWORD = 'your-email-password'
+EMAIL_HOST = 'smtp.elasticemail.com'  # SMTP server address for Elastic Email
+EMAIL_PORT = 2525  # Port number for Elastic Email SMTP
+EMAIL_USE_TSL = True  # Enable TLS for secure communication
+EMAIL_HOST_USER = 'wabsid01@gmail.com'  # This is your Elastic Email username (typically your email address)
+EMAIL_HOST_PASSWORD = '532C1EC6215ABD6174906FA8768635867ABF'  # The API key you generated in Elastic Email dashboard
+DEBUG = True
+DEFAULT_FROM_EMAIL = 'wabsid01@gmail.com'
 
 # settings.py
 LOGIN_URL = '/login/'  # Replace with the correct login path
@@ -157,4 +162,4 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Default backend
 ]
 
-
+ 

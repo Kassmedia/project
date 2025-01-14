@@ -142,10 +142,10 @@
     <header>
         <h1>User Dashboard</h1>
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Settings</a>
-            <a href="#">Help</a>
-            <a href="{% url 'logout' %}">Logout</a>
+            <li><a href="{% url 'home' %}"> Home </a></li>
+            <li><a href="{% url 'settings' %}"> Settings </a></li>
+            <li><a href="{% url 'help_support' %}"> Help </a></li>
+            <a href="{% url 'logout' %}"> Logout </a>
         </nav>
     </header>
 
@@ -156,7 +156,7 @@
             <h2>Welcome, {{ user.get_full_name|default:user.username }}!</h2>
             <p>You are logged in as {{ user.email }}.</p>
             <a href="{% url 'dashboardoverview' %}">Dashboard Overview</a>
-            <a href="{% url 'track-order' %}">My Orders</a>
+            <a href="{% url 'create_order' %}">My Orders</a>
             <a href="{% url 'settings' %}">Settings</a>
             <a href="{% url 'messages' %}">Messages</a>
             <a href="{% url 'help_support' %}">Help & Support</a>
@@ -172,7 +172,7 @@
 
             <h3>Quick Actions</h3>
             <p>
-                <a href="#" class="btn">Create New Order</a><br>
+                <a href="{% url 'create_order' %}" class="btn">Create New Order</a><br>
                 <a href="#" class="btn">Update Profile</a><br>
                 <a href="{% url 'messages' %}" class="btn">Check Messages</a><br>
             </p>
@@ -191,7 +191,74 @@
         window.onload = function() {
             console.log("Welcome to your dashboard, " + "{{ user.get_full_name|default:user.username }}");
         };
-
+        
+            const productViewsData = {
+                labels: {{ product_views_labels|safe }},
+                datasets: [{
+                    label: 'Product Views',
+                    data: {{ product_views_data|safe }},
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                }]
+            };
+        
+            const salesPerformanceData = {
+                labels: {{ sales_labels|safe }},
+                datasets: [{
+                    label: 'Sales Performance',
+                    data: {{ sales_data|safe }},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 1,
+                }]
+            };
+        
+            const marketTrendsData = {
+                labels: {{ market_labels|safe }},
+                datasets: [{
+                    label: 'Market Trends',
+                    data: {{ market_data|safe }},
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                }]
+            };
+        
+            function initializeCharts() {
+                const productViewsCtx = document.getElementById('productViewsChart').getContext('2d');
+                new Chart(productViewsCtx, {
+                    type: 'line',
+                    data: productViewsData,
+                });
+        
+                const salesPerformanceCtx = document.getElementById('salesPerformanceChart').getContext('2d');
+                new Chart(salesPerformanceCtx, {
+                    type: 'bar',
+                    data: salesPerformanceData,
+                });
+        
+                const marketTrendsCtx = document.getElementById('marketTrendsChart').getContext('2d');
+                new Chart(marketTrendsCtx, {
+                    type: 'line',
+                    data: marketTrendsData,
+                });
+            }
+        
+            initializeCharts();
+      
+        
+        
         // You can add more JavaScript interactions here
     </script>
 </body>

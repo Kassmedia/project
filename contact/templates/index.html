@@ -320,7 +320,8 @@
         <li>
           <a href="{% url 'home' %}"><img src="{% static 'images/home (1).png' %}" alt="Home">Home</a>
           <div class="dropdown">
-              <a href="{% url 'farmer_profile' %}">Farmer Profile</a>
+           <a href="{% url 'farmerProfiles' %}">Farmer Profiles</a>
+
               <a href="{% url 'farmers_dashboard' %}">Farmers dashboard</a>
               <a href="{% url 'subscribe' %}">Subscribe</a>
               <a href="{% url 'data-analysis' %}">MarketTrendsChart</a>
@@ -466,7 +467,7 @@
           <a href="{% url 'article3' %}" class="read-more">Read More</a>
         </div>
         <div class="article">
-          <img src="{% static 'images/Water Conservation.png' %}" alt="Water Conservation">
+          <img src="{% static 'images/water.png' %}" alt="Water Conservation">
           <h3>Water Conservation Techniques</h3>
           <p>Explore ways to save water while maintaining healthy crops.</p>
           <a href="{% url 'article4' %}" class="read-more">Read More</a>

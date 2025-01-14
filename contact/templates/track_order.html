@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - Your Company</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #d9d9d9;
+        }
+
+        .content {
+            padding: 20px;
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .order-details {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .order-details li {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .order-details li:last-child {
+            border-bottom: none;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Your Company</h1>
+        <nav>
+            <a href="/">Home</a>
+           
+            <a href="/contact">Contact</a>
+           
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="content">
+        <h2>Order Details</h2>
+        <p>Here are the details for your recent order. You can track the status of your order below.</p>
+
+        <ul class="order-details">
+            <li><strong>Order Number:</strong> {{ order.id }}</li>
+            <li><strong>Product Name:</strong> {{ order.product_name }}</li>
+            <li><strong>Tracking Number:</strong> {{ order.tracking_number }}</li>
+            <li><strong>Status:</strong> {{ order.status }}</li>
+        </ul>
+
+        <h3>Order Progress:</h3>
+        <p>Stay informed about the status of your order. If you encounter any issues or delays, feel free to reach out to our support team for assistance.</p>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>&copy; 2025 Your Company. All rights reserved.</p>
+    </footer>
+</body>
+</html>

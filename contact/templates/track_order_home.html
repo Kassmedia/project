@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - Oja Agbe</title>
+</head>
+<body>
+    <h1>Track Your Order</h1>
+    <form method="POST" action="{% url 'track_order_home' %}">
+        {% csrf_token %}
+        <label for="tracking_number">Enter Tracking Number:</label>
+        <input type="text" id="tracking_number" name="tracking_number" required>
+        <button type="submit">Track Order</button>
+    </form>
+</body>
+</html>

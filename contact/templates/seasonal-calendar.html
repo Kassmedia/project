@@ -11,36 +11,33 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-color: #f4f7fc;
             color: #333;
+            line-height: 1.6;
         }
 
         /* Header Styling */
         header {
-            background-color: #343a40;
+            background-color: #5c6bc0;
             color: white;
-            padding: 20px 30px;
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         header h1 {
-            font-size: 30px;
-            font-weight: 700;
+            font-size: 32px;
+            font-weight: 600;
             letter-spacing: 1px;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 25px;
+            gap: 30px;
             padding: 0;
-        }
-
-        nav ul li {
-            margin-right: 15px;
         }
 
         nav ul li a {
@@ -58,19 +55,21 @@
 
         /* Main Content */
         .calendar-container {
-            padding: 50px;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .calendar-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .calendar-header h2 {
             font-size: 36px;
             font-weight: 700;
             margin-bottom: 20px;
-            color: #343a40;
+            color: #333;
         }
 
         .calendar-header p {
@@ -90,21 +89,21 @@
             background-color: #fff;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .month:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
         }
 
         .month h3 {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
             margin-bottom: 15px;
-            color: #007bff;
+            color: #4caf50;
         }
 
         .month p {
@@ -137,18 +136,18 @@
         /* Subscription Section */
         .subscribe-section {
             background-color: #fff;
-            padding: 40px;
+            padding: 50px;
             border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             margin-top: 60px;
             text-align: center;
         }
 
         .subscribe-section h3 {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 700;
             margin-bottom: 15px;
-            color: #343a40;
+            color: #333;
         }
 
         .subscribe-section p {
@@ -177,12 +176,12 @@
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #007bff;
+            border-color: #4caf50;
             background-color: #fff;
         }
 
         .subscribe-button {
-            background-color: #007bff;
+            background-color: #4caf50;
             color: white;
             padding: 15px 30px;
             font-size: 16px;
@@ -193,14 +192,14 @@
         }
 
         .subscribe-button:hover {
-            background-color: #0056b3;
+            background-color: #45a049;
             transform: scale(1.05);
         }
 
         /* Footer Styling */
         footer {
             text-align: center;
-            background-color: #343a40;
+            background-color: #5c6bc0;
             color: white;
             padding: 30px 0;
             margin-top: 60px;
@@ -234,16 +233,6 @@
             }
         }
     </style>
-    <script>
-        // Example JavaScript function for form submission or other interactivity
-        document.addEventListener("DOMContentLoaded", function() {
-            const subscribeButton = document.querySelector(".subscribe-button");
-            subscribeButton.addEventListener("click", function(event) {
-                event.preventDefault();
-                alert("Subscription successful! We'll notify you when the products are available.");
-            });
-        });
-    </script>
 </head>
 <body>
 
@@ -254,7 +243,7 @@
         </div>
         <nav>
             <ul>
-                <li><a href="{% url 'home' %}">Home</a> </li>
+                <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'marketplace' %}">Marketplace</a></li>
                 <li><a href="{% url 'community-forum' %}">Community Forum</a></li>
                 <li><a href="{% url 'seasonal-calendar' %}">Seasonal Calendar</a></li>
@@ -271,22 +260,21 @@
             <p>Discover the availability of various crops, so you can plan your purchases with ease.</p>
         </div>
 
-        <!-- Calendar Display 
         <div class="calendar">
             {% for month in months %}
             <div class="month">
-                <h3>{{ month.name }} </h3>
+                <h3>{{ month.name }}</h3>
                 <p>Available Products:</p>
                 <ul class="available-products">
-                    {% for product in month.products %}
-                    <li>{{ product }}</li>
+                    {% for product in month.products.all %}
+                    <li>{{ product.name }}</li>
                     {% endfor %}
                 </ul>
             </div>
             {% endfor %}
-        </div>  -->
+        </div>
 
-        <!-- Subscription Section for Notifications -->
+        <!-- Subscription Section -->
         <div class="subscribe-section">
             <h3>Get Notified When Products Are Available</h3>
             <p>Enter your email and select your preferred products to get notified when they are in season.</p>
@@ -296,14 +284,14 @@
                     <label for="email">Your Email</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 </div>
-              <!--  <div class="form-group">
+                <div class="form-group">
                     <label for="products">Select Products</label>
                     <select id="products" name="products" multiple>
-                   {% for product in available_products %} 
-                        <option value="{{ product }}">{{ product }}</option>
+                        {% for product in available_products %}
+                        <option value="{{ product.id }}">{{ product.name }}</option>
                         {% endfor %}
                     </select>
-                </div> -->
+                </div>
                 <button type="submit" class="subscribe-button">Subscribe for Notifications</button>
             </form>
         </div>

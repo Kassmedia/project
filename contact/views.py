@@ -10,7 +10,7 @@ from .models import Farmer
 from .models import Month, Product
 from .forms import ProductListingForm, ContactForm
 from django.core.mail import send_mail
-
+from django.conf import settings
 from .forms import FarmerProfileForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
@@ -34,6 +34,7 @@ import requests
 from .models import Order
 from django.utils.timezone import now
 import uuid
+from django.http import Http404
 
 
 # Contact View
@@ -197,8 +198,34 @@ def contact(request):
 
 @login_required
 def dashboard_view(request):
-    print(f"User logged in: {request.user.username}")  # Debugging line
-    return render(request, 'dashboard.html', {'user': request.user})
+    # Sample data for charts and other analytics
+    product_views_labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+    product_views_data = [500, 700, 850, 1000, 1200, 1300]
+    
+    sales_labels = ['Tomatoes', 'Lettuce', 'Rice', 'Carrots', 'Pineapples']
+    sales_data = [1200, 800, 1100, 650, 950]
+    
+    market_labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+    market_data = [400, 550, 700, 850, 1000, 1150]
+    
+    price_suggestions = [
+        {'name': 'Tomatoes', 'price_change': '+5%', 'market_trend': 'High demand in the region'},
+        {'name': 'Rice', 'price_change': '-3%', 'market_trend': 'Price drop expected in the coming weeks'},
+        {'name': 'Lettuce', 'price_change': '+10%', 'market_trend': 'Seasonal peak expected'}
+    ]
+    
+    # Pass the data to the context for rendering in the template
+    context = {
+        'product_views_labels': product_views_labels,
+        'product_views_data': product_views_data,
+        'sales_labels': sales_labels,
+        'sales_data': sales_data,
+        'market_labels': market_labels,
+        'market_data': market_data,
+        'price_suggestions': price_suggestions
+    }
+    
+    return render(request, 'dashboard.html', context)
 
 
 def data_analysis(request):
@@ -213,20 +240,16 @@ def farmer_profile(request):
     return render(request, 'farmer_profile.html', {'farmers': farmers})
 
 def FarmerProfiles(request):
-    # Fetch all farmers
-    farmers = Farmer.objects.all()
-
-    # Set the number of farmers to display per page
-    paginator = Paginator(farmers, 10)  # Show 10 farmers per page
-
-    # Get the current page number from the GET request
+    farmers = Farmer.objects.all()  # Retrieve all farmers
+    paginator = Paginator(farmers, 10)  # Paginate farmers, 10 per page
     page_number = request.GET.get('page')
-
-    # Get the farmers for the current page
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'Farmer Profiles.html', {'page_obj': page_obj})
-
+    # Pass the range object for generating stars
+    return render(request, 'Farmer Profiles.html', {
+        'page_obj': page_obj,
+        'range': range(1, 6)  # A range from 1 to 5
+    })
 
 def Government_NGO_Paternership(request):
     return render(request, 'Government NGO Patnerships.html')
@@ -277,7 +300,7 @@ def reward(request):
 
 
 def seasonal_calendar(request):
-    months = Month.objects.all()
+    months = Month.objects.prefetch_related('products').all()
     available_products = Product.objects.all()
     return render(request, 'seasonal-calendar.html', {
         'months': months,
@@ -292,8 +315,25 @@ def seasonal_calendar(request):
         return redirect('thank_you')
     return redirect('subscribe')
 
-def subscribe(request):
+#def subscribe(request):
     return render(request, 'subscribe.html')
+
+def subscribe(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        product_ids = request.POST.getlist('products')
+        selected_products = Product.objects.filter(id__in=product_ids)
+
+        # Send notification email (example)
+        send_mail(
+            'Subscription Confirmation',
+            f'You have subscribed to updates for: {", ".join([p.name for p in selected_products])}.',
+            settings.DEFAULT_FROM_EMAIL,
+            [email],
+        )
+
+        return redirect('seasonal-calendar')
+    return redirect('seasonal-calendar')
 
 def subscription_plans(request):
     plans = [
@@ -313,8 +353,21 @@ def terms(request):
 
 # View to track an order
 def track_order(request, tracking_number):
-    order = get_object_or_404(Order, tracking_number=tracking_number)
-    return render(request, 'create_order.html', {'order': order})
+    try:
+        # Example query to find the order
+        order = Order.objects.get(tracking_number=tracking_number)
+    except Order.DoesNotExist:
+        raise Http404("Order not found")
+
+    return render(request, 'track_order.html', {'order': order})
+
+def track_order_home(request):
+    if request.method == 'POST':
+        tracking_number = request.POST.get('tracking_number')
+        if tracking_number:
+            # Redirect to the detailed tracking page
+            return redirect('track_order', tracking_number=tracking_number)
+    return render(request, 'track_order_home.html')
 
 def ussdPayment(request):
     return render(request, 'ussd-payment.html')
@@ -589,3 +642,23 @@ def create_order(request):
         return redirect('track_order', tracking_number=tracking_number)
 
     return render(request, 'create_order.html')
+
+
+def get_chart_data(request):
+    # Fetch the filtered data here (e.g., based on date range or other filters)
+    product_views = Product.objects.all().values_list('views', flat=True)
+    sales_data = Product.objects.all().values_list('sales', flat=True)
+    market_data = Product.objects.all().values_list('market_demand', flat=True)
+
+    return JsonResponse({
+        'product_views_data': list(product_views),
+        'sales_data': list(sales_data),
+        'market_data': list(market_data),
+    })
+
+def farmer_detail(request, farmer_id):
+    farmer = get_object_or_404(Farmer, id=farmer_id)
+    farmers = Farmer.objects.all().order_by('id')
+    paginator = Paginator(farmers, 10)  # Paginate farmers, 10 per page
+
+    return render(request, 'farmer_detail.html', {'farmer': farmer})
