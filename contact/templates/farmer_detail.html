@@ -119,7 +119,24 @@
     <main>
         <section id="farmer-detail">
             <div class="farmer-card">
-                <img src="{{ farmer.image.url }}" alt="{{ farmer.name }}">
+                {% if farmer.image %}
+    <img src="{{ farmer.image.url }}" alt="{{ farmer.name }}">
+{% else %}
+    {% if farmer.id|divisibleby:6 %}
+        <img src="{% static 'images/NGO 1.png' %}" alt="{{ farmer.name }}">
+    {% elif farmer.id|divisibleby:5 %}
+        <img src="{% static 'images/NGO 2.png' %}" alt="{{ farmer.name }}">
+    {% elif farmer.id|divisibleby:4 %}
+        <img src="{% static 'images/PIC.png' %}" alt="{{ farmer.name }}">
+    {% elif farmer.id|divisibleby:3 %}
+        <img src="{% static 'images/UKI.png' %}" alt="{{ farmer.name }}">
+    {% elif farmer.id|divisibleby:2 %}
+        <img src="{% static 'images/UKI6.png' %}" alt="{{ farmer.name }}">
+    {% else %}
+        <img src="{% static 'images/default-image.jpg' %}" alt="{{ farmer.name }}">
+    {% endif %}
+{% endif %}
+
                 <h3>{{ farmer.name }}</h3>
                 <p><strong>Location:</strong> {{ farmer.location }}</p>
                 <p>{{ farmer.bio }}</p>

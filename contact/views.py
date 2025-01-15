@@ -240,6 +240,7 @@ def farmer_profile(request):
     return render(request, 'farmer_profile.html', {'farmers': farmers})
 
 def FarmerProfiles(request):
+    farmers = FarmerProfile.objects.exclude(name__in=['Farmer One', 'Omop'])
     farmers = Farmer.objects.all()  # Retrieve all farmers
     paginator = Paginator(farmers, 10)  # Paginate farmers, 10 per page
     page_number = request.GET.get('page')

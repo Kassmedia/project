@@ -9,7 +9,8 @@
     <title>Farmer Profiles - Oja Agbe</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
-        /* Basic Styles */
+        /* Styles as per your provided code (unchanged) */
+	 /* Basic Styles */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -280,13 +281,31 @@
         </nav>
     </header>
     
-
     <main>
         <section id="farmer-profiles">
             <!-- Displaying the list of farmers -->
             {% for farmer in page_obj %}
-            <div class="farmer-card">
+            <div class="farmer-card" data-products="{{ farmer.products|join:',' }}">
+                {% if farmer.image %}
                 <img src="{{ farmer.image.url }}" alt="{{ farmer.name }}">
+            {% else %}
+                {% if forloop.counter0|divisibleby:6 %}
+                    <img src="{% static 'images/NGO 1.png' %}" alt="{{ farmer.name }}">
+                {% elif forloop.counter0|divisibleby:5 %}
+                    <img src="{% static 'images/NGO 2.png' %}" alt="{{ farmer.name }}">
+                {% elif forloop.counter0|divisibleby:4 %}
+                    <img src="{% static 'images/PIC.png' %}" alt="{{ farmer.name }}">
+                {% elif forloop.counter0|divisibleby:3 %}
+                    <img src="{% static 'images/UKI.png' %}" alt="{{ farmer.name }}">
+                {% elif forloop.counter0|divisibleby:2 %}
+                    <img src="{% static 'images/UKI6.png' %}" alt="{{ farmer.name }}">
+                {% else %}
+                    <img src="{% static 'images/default-image.jpg' %}" alt="{{ farmer.name }}">
+                {% endif %}
+            {% endif %}
+                
+            
+
                 <h3>{{ farmer.name }}</h3>
                 <p><strong>Location:</strong> {{ farmer.location }}</p>
                 <p>{{ farmer.bio }}</p>
@@ -298,20 +317,16 @@
                             <span class="star">&#9734;</span>
                         {% endif %}
                     {% endfor %}
-
                 </div>
                 <!-- Link to Farmer Detail Page -->
                 <a href="{% url 'farmer_detail' farmer.id %}" class="view-more">View More</a>
+                <button class="view-products" onclick="viewProducts(this)">View Products</button>
             </div>
-            
-                    <button class="view-products" onclick="viewProducts('{{ farmer.name }}')">View Products</button>
-                </div>
             {% empty %}
                 <p>No farmers found.</p>
             {% endfor %}
         </section>
         
-
         <!-- Pagination controls -->
         <div class="pagination">
             <span class="step-links">
@@ -319,11 +334,9 @@
                     <a href="?page=1">&laquo; first</a>
                     <a href="?page={{ page_obj.previous_page_number }}">previous</a>
                 {% endif %}
-
                 <span class="current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
-
                 {% if page_obj.has_next %}
                     <a href="?page={{ page_obj.next_page_number }}">next</a>
                     <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
@@ -340,8 +353,8 @@
         </div>
         <div class="social-icons">
             <a href="#"><img src="{% static 'images/twitter (1).png' %}" alt="Twitter"></a>
-      <a href="#"><img src="{% static 'images/facebook (1).png' %}" alt="Facebook"></a>
-      <a href="#"><img src="{% static 'images/instagr.jpg' %}" alt="Instagram"></a>
+            <a href="#"><img src="{% static 'images/facebook (1).png' %}" alt="Facebook"></a>
+            <a href="#"><img src="{% static 'images/instagr.jpg' %}" alt="Instagram"></a>
         </div>
         <p>&copy; 2024 Oja Agbe Harvestify. All rights reserved.</p>
     </footer>
@@ -354,16 +367,11 @@
             menu.classList.toggle('active');
         });
 
-        // Function to view products (just logs for now)
-        function viewProducts(farmerName) {
-            const farmer = {% for farmer in page_obj %}
-                {% if farmer.name == farmerName %}
-                    {{ farmer }}
-                {% endif %}
-            {% endfor %}
-            if (farmer) {
-                alert(`${farmer.name}'s Products:\n- ${farmer.products.join("\n- ")}`);
-            }
+        // Function to view products for a specific farmer
+        function viewProducts(button) {
+            const farmerCard = button.closest('.farmer-card');
+            const products = farmerCard.dataset.products.split(',');
+            alert(`Products:\n- ${products.join('\n- ')}`);
         }
     </script>
 </body>
