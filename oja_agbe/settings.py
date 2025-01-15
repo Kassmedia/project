@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv() 
+
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,12 +90,27 @@ WSGI_APPLICATION = 'oja_agbe.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# Database Configuration
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('ola_6wgl'),
+        'USER': os.getenv('ola_6wgl_user'),
+        'PASSWORD': os.getenv('LvS8RijRGa7JYOCZdZ0OlSO22lVwYIOG'),
+        'HOST': os.getenv('dpg-cu41gjjv2p9s73dt6340-a.oregon-postgres.render.com'),
+        'PORT': os.getenv('DB_PORT', '5432'),  # Default to 5432 if not provided
     }
 }
+
+# Secret Key Configuration
+SECRET_KEY = os.getenv('PPnqv93qoyN299AA98u82tbrR0tlVhNO26ozB9_08DyKFT1FnT09Fua6SHfzyxHpNg8')
+
+# Debug Configuration
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+# Allowed Hosts Configuration
+ALLOWED_HOSTS = os.getenv('.render.com,contact.onrender.com', '').split(',')
+
 
 
 # Password validation
