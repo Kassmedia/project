@@ -13,3 +13,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+// When page loads, log a message
+window.onload = function() {
+    console.log("Help & Support and Messages pages loaded successfully.");
+}
+
+// Handle 'Compose New Message' button click
+document.querySelector('.compose-btn').addEventListener('click', function() {
+    alert("Compose New Message button clicked!");
+});
+
+// Handle form submission on Help & Support page
+document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the form from submitting to simulate submission
+    alert("Your issue has been submitted. We will get back to you soon!");
+});
