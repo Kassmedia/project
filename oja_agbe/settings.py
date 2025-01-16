@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
-
 from dotenv import load_dotenv
 
 load_dotenv() 
@@ -94,10 +93,10 @@ WSGI_APPLICATION = 'oja_agbe.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('ola_6wgl'),
-        'USER': os.getenv('ola_6wgl_user'),
-        'PASSWORD': os.getenv('LvS8RijRGa7JYOCZdZ0OlSO22lVwYIOG'),
-        'HOST': os.getenv('dpg-cu41gjjv2p9s73dt6340-a.oregon-postgres.render.com'),
+        'NAME': os.getenv('DB_NAME', 'ola_6wgl'),
+        'USER': os.getenv('DB_USER', 'ola_6wgl_user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'LvS8RijRGa7JYOCZdZ0OlSO22lVwYIOG'),
+        'HOST': os.getenv('DB_HOST', 'dpg-cu41gjjv2p9s73dt6340-a.oregon-postgres.render.com'),
         'PORT': os.getenv('DB_PORT', '5432'),  # Default to 5432 if not provided
     }
 }
