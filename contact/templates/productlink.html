@@ -115,10 +115,10 @@
     <header>
         <nav>
             <ul>
-                <li><a href="{% url 'home' %}"><img src="{% static 'image/home (1).png' %}" alt="Home">Home</a></li>
-                <li><a href="{% url 'product' %}"><img src="{% static 'image/product (1).png' %}" alt="Products">Products</a></li>
-                <li><a href="{% url 'about' %}"><img src="{% static 'image/about (1).png' %}" alt="About Us">About Us</a></li>
-                <li><a href="{% url 'login' %}"><img src="{% static 'image/login (1).png' %}" alt="Login">Login</a></li>
+                <li><a href="{% url 'home' %}"><img src="{% static 'images/home (1).png' %}" alt="Home">Home</a></li>
+                <li><a href="{% url 'product' %}"><img src="{% static 'images/product (1).png' %}" alt="Products">Products</a></li>
+                <li><a href="{% url 'about' %}"><img src="{% static 'images/about (1).png' %}" alt="About Us">About Us</a></li>
+                <li><a href="{% url 'login' %}"><img src="{% static 'images/login (1).png' %}" alt="Login">Login</a></li>
             </ul>
         </nav>
     </header>
@@ -128,19 +128,19 @@
         <section class="product-grid">
             <!-- Example Product Cards -->
             <div class="product-card" onclick="viewProduct('spent-layers')">
-                <img src="{% static 'image/feature1-image (1).jpg' %}" alt="Spent Layers">
+                <img src="{% static 'images/feature1-image (1).jpg' %}" alt="Spent Layers">
                 <h3>Sell Spent Layers (Birds)</h3>
                 <p>Get competitive pricing for your spent poultry layers.</p>
                 <a href="javascript:void(0)">View Details</a>
             </div>
             <div class="product-card" onclick="viewProduct('cassava')">
-                <img src="{% static 'image/feature2-image (1).jpg' %}" alt="Cassava">
+                <img src="{% static 'images/feature2-image (1).jpg' %}" alt="Cassava">
                 <h3>Sell Fresh Cassava</h3>
                 <p>Sell directly to consumers for better returns.</p>
                 <a href="javascript:void(0)">View Details</a>
             </div>
             <div class="product-card" onclick="viewProduct('pigs')">
-                <img src="{% static 'image/feature3-image (1).jpg' %}" alt="Mature Pig">
+                <img src="{% static 'images/feature3-image (1).jpg' %}" alt="Mature Pig">
                 <h3>Sell Market-Ready Pigs</h3>
                 <p>Secure top dollar for your mature pigs.</p>
                 <a href="javascript:void(0)">View Details</a>
@@ -159,17 +159,17 @@
                 'spent-layers': {
                     title: "Sell Spent Layers (Birds)",
                     description: "Maximize your profits by selling your spent layers directly to consumers.",
-                    image: "{% static 'image/feature1-image (1).jpg' %}"
+                    image: "{% static 'images/feature1-image (1).jpg' %}"
                 },
                 'cassava': {
                     title: "Sell Fresh Cassava",
                     description: "Sell fresh cassava directly to consumers and eliminate middlemen.",
-                    image: "{% static 'image/feature2-image (1).jpg' %}"
+                    image: "{% static 'images/feature2-image (1).jpg' %}"
                 },
                 'pigs': {
                     title: "Sell Market-Ready Pigs",
                     description: "Sell your market-ready pigs and secure the best deals.",
-                    image: "{% static 'image/feature3-image (1).jpg' %}"
+                    image: "{% static 'images/feature3-image (1).jpg' %}"
                 }
             };
 
